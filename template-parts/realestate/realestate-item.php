@@ -1,15 +1,16 @@
 <?php 
-$thumbnail = get_the_post_thumbnail(get_the_ID(), 'full'); 
+$post_id = get_the_ID();
+$thumbnail = get_the_post_thumbnail($post_id, 'full'); 
 $thumbnail = ($thumbnail) ? $thumbnail : '<img src="' . THEME_URI . '/img/default-image.png" alt="' . get_the_title() . '">';
-$area = get_field('area');
-$rooms = get_field('rooms');
-$bedrooms = get_field('bedrooms');
-$bathrooms = get_field('bathrooms');
-$floor = get_field('floor');
-$total_floor = get_field('totalFloor');
-$number_lot = get_field('lotid');
-$address = get_field('address');
-$price_rub = get_field('salePriceRub');
+$area = get_field('area', $post_id);
+$rooms = get_field('rooms', $post_id);
+$bedrooms = get_field('bedrooms', $post_id);
+$bathrooms = get_field('bathrooms', $post_id);
+$floor = get_field('floor', $post_id);
+$total_floor = get_field('totalFloor', $post_id);
+$number_lot = get_field('lotid', $post_id);
+$address = get_field('address', $post_id);
+$price_rub = get_field('salePriceRub', $post_id);
 ?>
 
 <div class="item">   
@@ -56,40 +57,44 @@ $price_rub = get_field('salePriceRub');
                 <?php endif; ?>
 
             </div>
-            <ul class="object_ul">
 
-                <?php if ($rooms) : ?>
-                    <li class="object_li">
-                        <div class="object_li_title">Комнат</div> <?php echo $rooms; ?>
-                    </li> 
-                <?php endif; ?>
+            <?php if ( $rooms || $bedrooms || $bathrooms || $floor ) : ?>
+                <ul class="object_ul">
 
-                <?php if ($bedrooms) : ?>
-                    <li class="object_li">
-                        <div class="object_li_title">Спален</div> <?php echo $bedrooms; ?>
-                    </li> 
-                <?php endif; ?>
+                    <?php if ($rooms) : ?>
+                        <li class="object_li">
+                            <div class="object_li_title">Комнат</div> <?php echo $rooms; ?>
+                        </li> 
+                    <?php endif; ?>
 
-                <?php if ($bathrooms) : ?>
-                    <li class="object_li">
-                        <div class="object_li_title">С/У</div> <?php echo $bathrooms; ?>
-                    </li> 
-                <?php endif; ?>
+                    <?php if ($bedrooms) : ?>
+                        <li class="object_li">
+                            <div class="object_li_title">Спален</div> <?php echo $bedrooms; ?>
+                        </li> 
+                    <?php endif; ?>
 
-                <?php if ($floor) : ?>
-                    <li class="object_li">
-                        <div class="object_li_title">Этаж</div>  
-                        <?php 
-                        if ($total_floor) :
-                            echo $floor . '/' . $total_floor; 
-                        else :
-                            echo $floor; 
-                        endif;
-                        ?>
-                    </li> 
-                <?php endif; ?>
+                    <?php if ($bathrooms) : ?>
+                        <li class="object_li">
+                            <div class="object_li_title">С/У</div> <?php echo $bathrooms; ?>
+                        </li> 
+                    <?php endif; ?>
 
-            </ul>
+                    <?php if ($floor) : ?>
+                        <li class="object_li">
+                            <div class="object_li_title">Этаж</div>  
+                            <?php 
+                            if ($total_floor) :
+                                echo $floor . '/' . $total_floor; 
+                            else :
+                                echo $floor; 
+                            endif;
+                            ?>
+                        </li> 
+                    <?php endif; ?>
+
+                </ul>
+            <?php endif; ?>
+            
         </div>
     </div>
 </div>

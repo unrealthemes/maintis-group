@@ -802,6 +802,21 @@ if (input) {
         startPosition:1,
         responsiveRefreshRate:1000
     });
+    
+    // infr_carousel
+    jQuery('#infr_carousel').owlCarousel({
+        loop:true, 
+        items:1,
+        autoWidth:false,
+        // stagePadding: 100,                
+        margin:20,
+        string: 'item',  
+        dots:true,
+        navText:["<div class='arrow arrow_left'></div>","<div class='arrow arrow_right'></div>"],  
+        nav:true, 
+        startPosition:1,
+        responsiveRefreshRate:1000
+    });
 
 
     // list_view_3

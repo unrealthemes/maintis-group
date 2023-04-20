@@ -14,9 +14,11 @@ $salePriceSquareEur = $args['salePriceSquareEur'];
             <?php echo number_format($salePriceRub, 0, '.', ' '); ?> ₽
         </div>
         
-        <div class="price_two price_s">
-            <?php echo number_format($salePriceSquareRub, 0, '.', ' '); ?> ₽/м²
-        </div>
+        <?php if ($salePriceSquareRub) : ?>
+            <div class="price_two price_s">
+                <?php echo number_format($salePriceSquareRub, 0, '.', ' '); ?> ₽/м²
+            </div>
+        <?php endif; ?>
   
     </div> 
    

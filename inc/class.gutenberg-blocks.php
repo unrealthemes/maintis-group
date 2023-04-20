@@ -111,6 +111,24 @@ class UT_Guneberg_Blocks {
             ]);
             
             acf_register_block_type([
+                'name'              => 'contacts-info',
+                'title'             => 'Контакты (инфо)',
+                // 'description'       => __('A custom contacts-info.'),
+                'render_template'   => 'template-parts/blocks/contacts-info.php',
+                'category'          => 'maintisgroup',
+                'icon'              => 'maintisgroup',
+                'keywords'          => [ 'Контакты' ],
+                'example'           => [
+                    'attributes' => [
+                        'mode' => 'preview',
+                        'data' => [
+                            'is_preview' => true
+                        ]
+                    ]
+                ]
+            ]);
+            
+            acf_register_block_type([
                 'name'              => 'requisites',
                 'title'             => 'Реквизиты',
                 // 'description'       => __('A custom requisites.'),
@@ -201,13 +219,13 @@ class UT_Guneberg_Blocks {
             ]);
             
             acf_register_block_type([
-                'name'              => 'district-infrastructure',
-                'title'             => 'Инфрастуктура района',
-                // 'description'       => __('A custom district-infrastructure.'),
-                'render_template'   => 'template-parts/blocks/realestate/district-infrastructure.php',
+                'name'              => 'best_re',
+                'title'             => 'Лучшие объекты',
+                // 'description'       => __('A custom best_re.'),
+                'render_template'   => 'template-parts/blocks/best-realestate.php',
                 'category'          => 'maintisgroup',
                 'icon'              => 'maintisgroup',
-                'keywords'          => [ 'Инфрастуктура района' ],
+                'keywords'          => [ 'Ообъекты' ],
                 'example'           => [
                     'attributes' => [
                         'mode' => 'preview',
@@ -216,16 +234,34 @@ class UT_Guneberg_Blocks {
                         ]
                     ]
                 ]
-            ]);
+            ]); 
+
+            acf_register_block_type([
+                'name'              => 'best_res',
+                'title'             => 'Лучшие объекты (слайдер)',
+                // 'description'       => __('A custom best_res.'),
+                'render_template'   => 'template-parts/blocks/best-realestate-slider.php',
+                'category'          => 'maintisgroup',
+                'icon'              => 'maintisgroup',
+                'keywords'          => [ 'Ообъекты' ],
+                'example'           => [
+                    'attributes' => [
+                        'mode' => 'preview',
+                        'data' => [
+                            'is_preview' => true
+                        ]
+                    ]
+                ]
+            ]); 
             
             acf_register_block_type([
-                'name'              => 'complex-architecture',
-                'title'             => 'Архитектура комплекса',
-                // 'description'       => __('A custom complex-architecture.'),
-                'render_template'   => 'template-parts/blocks/realestate/complex-architecture.php',
+                'name'              => 'slider_main',
+                'title'             => 'Слайдер',
+                // 'description'       => __('A custom slider-main.'),
+                'render_template'   => 'template-parts/blocks/slider-main.php',
                 'category'          => 'maintisgroup',
                 'icon'              => 'maintisgroup',
-                'keywords'          => [ 'Архитектура комплекса' ],
+                'keywords'          => [ 'Слайдер' ],
                 'example'           => [
                     'attributes' => [
                         'mode' => 'preview',
@@ -234,16 +270,16 @@ class UT_Guneberg_Blocks {
                         ]
                     ]
                 ]
-            ]);
+            ]); 
             
             acf_register_block_type([
-                'name'              => 'about-complex',
-                'title'             => 'О комплексе',
-                // 'description'       => __('A custom about-complex.'),
-                'render_template'   => 'template-parts/blocks/realestate/about-complex.php',
+                'name'              => 'filter',
+                'title'             => 'Фильтр',
+                // 'description'       => __('A custom filter.'),
+                'render_template'   => 'template-parts/blocks/filter.php',
                 'category'          => 'maintisgroup',
                 'icon'              => 'maintisgroup',
-                'keywords'          => [ 'О комплексе' ],
+                'keywords'          => [ 'Фильтр' ],
                 'example'           => [
                     'attributes' => [
                         'mode' => 'preview',
@@ -252,7 +288,61 @@ class UT_Guneberg_Blocks {
                         ]
                     ]
                 ]
-            ]);
+            ]); 
+            
+            acf_register_block_type([
+                'name'              => 'info-country',
+                'title'             => 'Инфо (страна)',
+                // 'description'       => __('A custom info-country.'),
+                'render_template'   => 'template-parts/blocks/info-country.php',
+                'category'          => 'maintisgroup',
+                'icon'              => 'maintisgroup',
+                'keywords'          => [ 'Инфо (страна)' ],
+                'example'           => [
+                    'attributes' => [
+                        'mode' => 'preview',
+                        'data' => [
+                            'is_preview' => true
+                        ]
+                    ]
+                ]
+            ]); 
+
+            acf_register_block_type([
+                'name'              => 'realestate-tax',
+                'title'             => 'Объекты недвижимости (категории)',
+                // 'description'       => __('A custom realestate-tax.'),
+                'render_template'   => 'template-parts/blocks/realestate-tax.php',
+                'category'          => 'maintisgroup',
+                'icon'              => 'maintisgroup',
+                'keywords'          => [ 'Объекты недвижимости' ],
+                'example'           => [
+                    'attributes' => [
+                        'mode' => 'preview',
+                        'data' => [
+                            'is_preview' => true
+                        ]
+                    ]
+                ]
+            ]); 
+            
+            acf_register_block_type([
+                'name'              => 'realestate-tax-map',
+                'title'             => 'Объекты недвижимости (на карте)',
+                // 'description'       => __('A custom realestate-tax-map.'),
+                'render_template'   => 'template-parts/blocks/realestate-tax-map.php',
+                'category'          => 'maintisgroup',
+                'icon'              => 'maintisgroup',
+                'keywords'          => [ 'Объекты недвижимости' ],
+                'example'           => [
+                    'attributes' => [
+                        'mode' => 'preview',
+                        'data' => [
+                            'is_preview' => true
+                        ]
+                    ]
+                ]
+            ]); 
 
         }
     }

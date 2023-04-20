@@ -19,7 +19,7 @@ class UT_Real_Estate {
         * unnecessarily executed. 
         */
         add_action( 'init', [$this, 'custom_post_type'], 0 );
-        add_action( 'init', [$this, 'add_custom_taxonomies'], 0 );
+        // add_action( 'init', [$this, 'add_custom_taxonomies'], 0 );
         add_action( 'template_redirect', [$this, 'track_post_view'], 20 );
         add_action( "wp_head", [$this, "track_posts"] );
     }
@@ -64,64 +64,81 @@ class UT_Real_Estate {
         ] );
     }
 
-    function add_custom_taxonomies() {
+    // function add_custom_taxonomies() {
 
-        register_taxonomy(
-            'cat_realestate', 
-            ['realestate'], 
-            array(
-                'public'                => true,
-                'show_in_nav_menus'     => true, // равен аргументу public
-                'show_ui'               => true, // равен аргументу public
-                'show_tagcloud'         => true, // равен аргументу show_ui
-                'hierarchical'          => true,
-                'show_admin_column'     => true,
-                'labels' => array(
-                    'name' => _x( 'Категории', 'taxonomy general name' ),
-                    'singular_name' => _x( 'Категория', 'taxonomy singular name' ),
-                    'search_items' =>  __( 'Поиск Категории' ),
-                    'all_items' => __( 'Все Категории' ),
-                    'parent_item' => __( 'Родительская Категория' ),
-                    'parent_item_colon' => __( 'Родительская Категория:' ),
-                    'edit_item' => __( 'Edit Категория' ),
-                    'update_item' => __( 'Обновить Категорию' ),
-                    'add_new_item' => __( 'Добавить новую Категорию' ),
-                    'new_item_name' => __( 'Новое имя Категории' ),
-                    'menu_name' => __( 'Категории' ),
-                ),
-                'rewrite' => array(
-                    'slug' => 'cat-realestates', // This controls the base slug that will display before each term
-                    'with_front' => true, // Don't display the category base before "/locations/"
-                    'hierarchical' => true // This will allow URL's like "/locations/boston/cambridge/"
-                ),
-            )
-        );
-    }
+    //     register_taxonomy(
+    //         'cat_realestate', 
+    //         ['realestate'], 
+    //         array(
+    //             'public'                => true,
+    //             'show_in_nav_menus'     => true, // равен аргументу public
+    //             'show_ui'               => true, // равен аргументу public
+    //             'show_tagcloud'         => true, // равен аргументу show_ui
+    //             'hierarchical'          => true,
+    //             'show_admin_column'     => true,
+    //             'labels' => array(
+    //                 'name' => _x( 'Категории', 'taxonomy general name' ),
+    //                 'singular_name' => _x( 'Категория', 'taxonomy singular name' ),
+    //                 'search_items' =>  __( 'Поиск Категории' ),
+    //                 'all_items' => __( 'Все Категории' ),
+    //                 'parent_item' => __( 'Родительская Категория' ),
+    //                 'parent_item_colon' => __( 'Родительская Категория:' ),
+    //                 'edit_item' => __( 'Edit Категория' ),
+    //                 'update_item' => __( 'Обновить Категорию' ),
+    //                 'add_new_item' => __( 'Добавить новую Категорию' ),
+    //                 'new_item_name' => __( 'Новое имя Категории' ),
+    //                 'menu_name' => __( 'Категории' ),
+    //             ),
+    //             'rewrite' => array(
+    //                 'slug' => 'cat-realestates', // This controls the base slug that will display before each term
+    //                 'with_front' => true, // Don't display the category base before "/locations/"
+    //                 'hierarchical' => true // This will allow URL's like "/locations/boston/cambridge/"
+    //             ),
+    //         )
+    //     );
+    // }
 
+    // public function track_post_view() {
+ 
+    //     if ( ! is_singular( 'realestate' ) ) {
+    //         return;
+    //     }
+     
+    //     global $post;
+     
+    //     if ( empty( $_COOKIE['recently_viewed'] ) ) {
+    //         $viewed_realestates = [];
+    //     } else {
+    //         $viewed_realestates = (array)explode( '|', $_COOKIE['recently_viewed'] );
+    //     }
+
+    //     if ( ! in_array( $post->ID, $viewed_realestates ) ) {
+    //         $viewed_realestates[] = $post->ID;
+    //     }
+     
+    //     // Store for session only
+    //     setcookie( 'recently_viewed', implode( '|', $viewed_realestates ) );
+     
+    // }
+    
     public function track_post_view() {
  
         if ( ! is_singular( 'realestate' ) ) {
             return;
         }
-     
-        global $post;
-     
-        if ( empty( $_COOKIE['recently_viewed'] ) ) {
-            $viewed_realestates = array();
-        } else {
-            $viewed_realestates = (array) explode( '|', $_COOKIE['recently_viewed'] );
-        }
 
-        if ( ! in_array( $post->ID, $viewed_realestates ) ) {
-            $viewed_realestates[] = $post->ID;
-        }
-     
-        if ( sizeof( $viewed_realestates ) > 10 ) {
-            array_shift( $viewed_realestates );
-        }
-     
-        // Store for session only
-        setcookie( 'recently_viewed', implode( '|', $viewed_realestates ) );
+        $cooki    = 'astx_recent_posts';
+		$ft_posts = isset( $_COOKIE[ $cooki ] ) ? json_decode( $_COOKIE[ $cooki ], true ) : null;
+
+		if ( isset( $ft_posts ) ) {
+			// Remove current post in the cookie
+			$ft_posts = array_diff( $ft_posts, [ get_the_ID() ] );
+			// update cookie with current post
+			array_unshift( $ft_posts, get_the_ID() );
+		} else {
+			$ft_posts = [ get_the_ID() ];
+		}
+		setcookie( $cooki, json_encode( $ft_posts ), time() + ( DAY_IN_SECONDS * 31 ), COOKIEPATH, COOKIE_DOMAIN );
      
     }
 

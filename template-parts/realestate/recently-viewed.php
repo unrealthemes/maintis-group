@@ -1,6 +1,6 @@
 <?php 
-$viewed_realestate = ! empty( $_COOKIE['recently_viewed'] ) ? (array) explode( '|', $_COOKIE['recently_viewed'] ) : array();
-$viewed_realestate = array_filter( array_map( 'absint', $viewed_realestate ) );
+$cooki = 'astx_recent_posts';
+$viewed_realestate = isset( $_COOKIE[ $cooki ] ) ? json_decode( $_COOKIE[ $cooki ], true ) : null;
 
 if ( empty( $viewed_realestate ) ) {
     return;

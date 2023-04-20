@@ -27,7 +27,7 @@ $text = get_field('txt_text');
 <?php if ( !empty( $_POST['query']['preview'] ) ) : ?>
 
     <figure>
-        <img src="<?php echo THEME_URI; ?>'/img/gutenberg-preview/text.png'" alt="Preview" style="width:100%;">
+        <img src="<?php echo THEME_URI; ?>/img/gutenberg-preview/text.png" alt="Preview" style="width:100%;">
     </figure>
 
 <?php else : ?>

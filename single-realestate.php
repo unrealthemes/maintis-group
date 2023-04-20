@@ -49,9 +49,9 @@ get_header();
                             'template-parts/realestate/slider', 
                             'main',
                             [
-                                'salePriceRub' => get_field('salePriceRub'),
-                                'salePriceUsd' => get_field('salePriceUsd'),
-                                'salePriceEur' => get_field('salePriceEur'),
+                                'salePriceRub' => ( ! empty(get_field('salePriceRub')) ) ? get_field('salePriceRub') : get_field('rentPriceRub'),
+                                'salePriceUsd' => ( ! empty(get_field('salePriceUsd')) ) ? get_field('salePriceUsd') : get_field('rentPriceUsd'),
+                                'salePriceEur' => ( ! empty(get_field('salePriceEur')) ) ? get_field('salePriceEur') : get_field('rentPriceEur'),
                                 'salePriceSquareRub' => get_field('salePriceSquareRub'),
                                 'salePriceSquareUsd' => get_field('salePriceSquareUsd'),
                                 'salePriceSquareEur' => get_field('salePriceSquareEur'),
@@ -64,9 +64,9 @@ get_header();
                             'template-parts/realestate/sidebar', 
                             'mobile',
                             [
-                                'salePriceRub' => get_field('salePriceRub'),
-                                'salePriceUsd' => get_field('salePriceUsd'),
-                                'salePriceEur' => get_field('salePriceEur'),
+                                'salePriceRub' => ( ! empty(get_field('salePriceRub')) ) ? get_field('salePriceRub') : get_field('rentPriceRub'),
+                                'salePriceUsd' => ( ! empty(get_field('salePriceUsd')) ) ? get_field('salePriceUsd') : get_field('rentPriceUsd'),
+                                'salePriceEur' => ( ! empty(get_field('salePriceEur')) ) ? get_field('salePriceEur') : get_field('rentPriceEur'),
                                 'salePriceSquareRub' => get_field('salePriceSquareRub'),
                                 'salePriceSquareUsd' => get_field('salePriceSquareUsd'),
                                 'salePriceSquareEur' => get_field('salePriceSquareEur'),
@@ -87,11 +87,24 @@ get_header();
 
                         <?php get_template_part('template-parts/realestate/architecture'); ?>
 
-                        <?php get_template_part('template-parts/realestate/infrastructure'); ?>
+                        <?php // get_template_part('template-parts/realestate/infrastructure'); ?>
 
                     </div>
                     
-                    <?php get_template_part('template-parts/realestate/sidebar', 'desctop'); ?>
+                    <?php 
+                    get_template_part(
+                        'template-parts/realestate/sidebar', 
+                        'desctop',
+                        [
+                            'salePriceRub' => ( ! empty(get_field('salePriceRub')) ) ? get_field('salePriceRub') : get_field('rentPriceRub'),
+                            'salePriceUsd' => ( ! empty(get_field('salePriceUsd')) ) ? get_field('salePriceUsd') : get_field('rentPriceUsd'),
+                            'salePriceEur' => ( ! empty(get_field('salePriceEur')) ) ? get_field('salePriceEur') : get_field('rentPriceEur'),
+                            'salePriceSquareRub' => get_field('salePriceSquareRub'),
+                            'salePriceSquareUsd' => get_field('salePriceSquareUsd'),
+                            'salePriceSquareEur' => get_field('salePriceSquareEur'),
+                        ]
+                    ); 
+                    ?>
 
                 </div>
                 

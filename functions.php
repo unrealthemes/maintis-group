@@ -7,6 +7,7 @@
  * @package unreal-themes 
  */
 
+define('THEME_DIR', __DIR__);
 define('THEME_URI', get_template_directory_uri());
 
 // require_once('lib/vendor/autoload.php');

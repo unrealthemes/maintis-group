@@ -27,7 +27,7 @@ $title = get_field('h1_title');
 <?php if ( !empty( $_POST['query']['preview'] ) ) : ?>
 
     <figure>
-        <img src="<?php echo THEME_URI; ?>'/img/gutenberg-preview/title.png'" alt="Preview" style="width:100%;">
+        <img src="<?php echo THEME_URI; ?>/img/gutenberg-preview/title.png" alt="Preview" style="width:100%;">
     </figure>
 
 <?php else : ?>

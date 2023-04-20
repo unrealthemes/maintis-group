@@ -117,3 +117,12 @@ div.wpcf7-spam-blocked::after {
 .soc a svg rect {
     fill: #00AEF0;
 }
+
+.admin-bar header {
+    margin-top: 32px;
+}
+
+.yandex--map {
+    width: 100%;
+    height: 600px;
+}
