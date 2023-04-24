@@ -7,7 +7,7 @@ class UT_Parser {
 
     private static $_instance = null; 
 
-    private $limit_post = 1;
+    private $limit_post = 3;
     private $chatgpt_key = 'YOUR_API_KEY';
 
     static public function get_instance() {
