@@ -93,6 +93,24 @@ class UT_Guneberg_Blocks {
             ]);
             
             acf_register_block_type([
+                'name'              => 'banner',
+                'title'             => 'Баннер',
+                // 'description'       => __('A custom banner.'),
+                'render_template'   => 'template-parts/blocks/banner.php',
+                'category'          => 'maintisgroup',
+                'icon'              => 'maintisgroup',
+                'keywords'          => [ 'Баннер' ],
+                'example'           => [
+                    'attributes' => [
+                        'mode' => 'preview',
+                        'data' => [
+                            'is_preview' => true
+                        ]
+                    ]
+                ]
+            ]);
+            
+            acf_register_block_type([
                 'name'              => 'contacts',
                 'title'             => 'Контакты',
                 // 'description'       => __('A custom contacts.'),
@@ -127,6 +145,24 @@ class UT_Guneberg_Blocks {
                     ]
                 ]
             ]);
+
+            acf_register_block_type([
+                'name'              => 'contact-form',
+                'title'             => 'Контактная форма',
+                // 'description'       => __('A custom contact-form.'),
+                'render_template'   => 'template-parts/blocks/contact-form.php',
+                'category'          => 'maintisgroup',
+                'icon'              => 'maintisgroup',
+                'keywords'          => [ 'Контактная форма' ],
+                'example'           => [
+                    'attributes' => [
+                        'mode' => 'preview',
+                        'data' => [
+                            'is_preview' => true
+                        ]
+                    ]
+                ]
+            ]);
             
             acf_register_block_type([
                 'name'              => 'requisites',
@@ -148,9 +184,63 @@ class UT_Guneberg_Blocks {
             
             acf_register_block_type([
                 'name'              => 'blocks',
-                'title'             => 'Блоки',
+                'title'             => 'Блоки 1',
                 // 'description'       => __('A custom blocks.'),
                 'render_template'   => 'template-parts/blocks/blocks.php',
+                'category'          => 'maintisgroup',
+                'icon'              => 'maintisgroup',
+                'keywords'          => [ 'Блоки' ],
+                'example'           => [
+                    'attributes' => [
+                        'mode' => 'preview',
+                        'data' => [
+                            'is_preview' => true
+                        ]
+                    ]
+                ]
+            ]);
+            
+            acf_register_block_type([
+                'name'              => 'blocks2',
+                'title'             => 'Блоки 2',
+                // 'description'       => __('A custom blocks2.'),
+                'render_template'   => 'template-parts/blocks/blocks2.php',
+                'category'          => 'maintisgroup',
+                'icon'              => 'maintisgroup',
+                'keywords'          => [ 'Блоки' ],
+                'example'           => [
+                    'attributes' => [
+                        'mode' => 'preview',
+                        'data' => [
+                            'is_preview' => true
+                        ]
+                    ]
+                ]
+            ]);
+            
+            acf_register_block_type([
+                'name'              => 'blocks3',
+                'title'             => 'Блоки 3',
+                // 'description'       => __('A custom blocks3.'),
+                'render_template'   => 'template-parts/blocks/blocks3.php',
+                'category'          => 'maintisgroup',
+                'icon'              => 'maintisgroup',
+                'keywords'          => [ 'Блоки' ],
+                'example'           => [
+                    'attributes' => [
+                        'mode' => 'preview',
+                        'data' => [
+                            'is_preview' => true
+                        ]
+                    ]
+                ]
+            ]);
+            
+            acf_register_block_type([
+                'name'              => 'blocks4',
+                'title'             => 'Блоки 4',
+                // 'description'       => __('A custom blocks4.'),
+                'render_template'   => 'template-parts/blocks/blocks4.php',
                 'category'          => 'maintisgroup',
                 'icon'              => 'maintisgroup',
                 'keywords'          => [ 'Блоки' ],
@@ -298,6 +388,24 @@ class UT_Guneberg_Blocks {
                 'category'          => 'maintisgroup',
                 'icon'              => 'maintisgroup',
                 'keywords'          => [ 'Инфо (страна)' ],
+                'example'           => [
+                    'attributes' => [
+                        'mode' => 'preview',
+                        'data' => [
+                            'is_preview' => true
+                        ]
+                    ]
+                ]
+            ]); 
+            
+            acf_register_block_type([
+                'name'              => 'info',
+                'title'             => 'Инфо',
+                // 'description'       => __('A custom info.'),
+                'render_template'   => 'template-parts/blocks/info.php',
+                'category'          => 'maintisgroup',
+                'icon'              => 'maintisgroup',
+                'keywords'          => [ 'Инфо' ],
                 'example'           => [
                     'attributes' => [
                         'mode' => 'preview',
