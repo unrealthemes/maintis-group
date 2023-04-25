@@ -144,3 +144,8 @@ div.wpcf7-spam-blocked::after {
     border-radius: 50%;
     position: absolute;
 }
+
+.dropdown-menu {
+    overflow: auto;
+    height: 190px;
+}

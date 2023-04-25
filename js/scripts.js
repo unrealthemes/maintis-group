@@ -26,24 +26,24 @@ let ENTITY = {
 
     init_maps: function init_maps() {
 
-        ymaps.ready(function () {
+        if ( $('.yandex--map').length ) {
+            ymaps.ready(function () {
+                var maps = $('.yandex--map');
 
-            var maps = $('.yandex--map');
+                if ( maps.length ) {
+                    maps.each( function( index ) {
+                        let id = $(this).attr('id');
+                        let count = $(this).data('count');
+                        let params = $(this).data('params');
 
-            if ( maps.length ) {
-                maps.each( function( index ) {
-                    let id = $(this).attr('id');
-                    let count = $(this).data('count');
-                    let params = $(this).data('params');
-
-                    if (count == 1) {
-                        ENTITY.map_handler( id, params );
-                        $('#' + id).attr('data-status', 'load');
-                    }
-                });
-            }
-
-        });
+                        if (count == 1) {
+                            ENTITY.map_handler( id, params );
+                            $('#' + id).attr('data-status', 'load');
+                        }
+                    });
+                }
+            });
+        }
 
     },
 

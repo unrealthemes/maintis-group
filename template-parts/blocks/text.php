@@ -13,6 +13,7 @@ if ( !empty($block['anchor']) ) {
 
 // Create class attribute allowing for custom "className" and "align" values.
 $className = 'home_block';
+
 if ( !empty($block['className']) ) {
     $className .= ' ' . $block['className'];
 }
@@ -48,5 +49,3 @@ $text = get_field('txt_text');
     <?php endif; ?>
 
 <?php endif; ?>
-
-
