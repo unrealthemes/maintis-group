@@ -11,9 +11,10 @@ $total_floor = get_field('totalFloor', $post_id);
 $number_lot = get_field('lotid', $post_id);
 $address = get_field('address', $post_id);
 $price_rub = get_field('salePriceRub', $post_id);
+$show = ( isset($args['count']) && $args['count'] > 12 ) ? 'style="display:none;"' : '';
 ?>
 
-<div class="item">   
+<div class="item" <?php echo $show; ?>>   
     <div class="object_item_vn">  
         <div class="object_item_img">
             <a href="<?php the_permalink(); ?>">

@@ -8,6 +8,17 @@ let ENTITY = {
         ENTITY.change_price();
         ENTITY.init_maps();
         ENTITY.reinit_map();
+        ENTITY.show_more_btn();
+    },
+
+    show_more_btn: function show_more_btn() {
+
+        $('.show_more_btn').on('click', function(e) {
+            e.preventDefault();
+            $(this).parent().parent().find('.object_list .item').show();
+            $(this).hide();
+        });
+
     },
 
     change_price: function change_price() {

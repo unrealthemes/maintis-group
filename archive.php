@@ -8,6 +8,18 @@
  */
 
 get_header();
+
+global $wp_query;
+
+// $tax_obj = $wp_query->get_queried_object();
+$find_txt = 'Найдено ' . ut_num_decline( $wp_query->found_posts, [ 'объект', 'объекты', 'объектов' ] );
+
+// $args = ut_help()->real_estate_filter->get_args($_GET, $tax_obj);
+
+echo '<pre style="background:red;color:#fff;">';
+print_r( $_GET );
+echo '</pre>';
+
 ?>
 
 	<div class="container">
@@ -28,7 +40,7 @@ get_header();
                  
                 <div class="cat_short_object"> 
                     <div class="block_title">
-                        <h3>Найдено 3060 объектов</h3> 
+                        <h3><?php echo $find_txt; ?></h3> 
                     </div>        
                     
                     <div class="cat_short">
@@ -44,11 +56,10 @@ get_header();
                                 <span>Популярные</span>
                             </a> 
                             <div class="big">
-                                <a href="#">по рейтингу</a>
-                                <a href="#">по цене</a>
-                                <a href="#">по отзывам</a>
-                                <a href="#">по дате начала</a>
-                                <a href="#">бесплатные</a>
+                                <a href="#">Популярные</a>
+                                <a href="#">Увеличение цены</a>
+                                <a href="#">Уменьшение цены</a>
+                                <a href="#">По дате</a>
                             </div>  
                         </div>
                          
@@ -93,6 +104,9 @@ get_header();
 											<!-- <div class="learn_more_cat">
 												<a class="learn_morebtn btn" href="#">Показать еще</a>
 											</div>    -->
+											<div class="TEST">
+												<?php the_posts_pagination(); ?>
+											</div> 
 										</div> 
 										
 									</div>

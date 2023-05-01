@@ -23,6 +23,7 @@ class UT_Parser {
         add_action( 'admin_menu', [$this, 'settings_page'] );
 
         add_action( 'insert_realestate', [$this, 'insert_realestate_handler'], 10, 1 );
+        add_action( 'rewrite_realestate', [$this, 'rewrite_realestate_handler'], 10, 1 );
 
         // Automatically Delete Woocommerce Images After Deleting a Product
         // add_action( 'before_delete_post', [$this, 'delete_post_images'], 10, 1 );
@@ -88,8 +89,11 @@ class UT_Parser {
         get_template_part('template-parts/admin/parser-data-table');
 
         if ( $status && $page == 1 && $type == 'realestate' ) {
-            $this->set_shedule_insert_realestate( 1 );
+            // $this->set_shedule_insert_realestate( 2000 );
             // $this->insert_realestate_handler(1);
+        } elseif ( $status && $page == 1 && $type == 'rewrite-realestate' ) {
+            $this->set_shedule_rewrite_realestate( 1 );
+            // $this->rewrite_realestate_handler(1);
         } 
 
     }
@@ -107,7 +111,7 @@ class UT_Parser {
         error_log(print_r('PAGE = ' . $page, true));
         
         // if ( ! count($posts['list']) ) {
-        if ( $page > 2000 ) {
+        if ( $page > 3334 ) { // start from 2000 page to 3334 
             error_log(print_r('CLEAR CRON', true));
             wp_clear_scheduled_hook( 'insert_realestate', [$page-1] );
             wp_clear_scheduled_hook( 'insert_realestate', [$page] );
@@ -292,6 +296,110 @@ class UT_Parser {
         $this->set_shedule_insert_realestate($page);
     }
 
+    public function rewrite_realestate_handler($page) {
+
+        $start = microtime(true);
+        global $wpdb;
+        $args = array(
+            'post_type' => 'realestate',
+            'post_status' => 'publish',
+            'posts_per_page' => 5,
+            'meta_query' => [
+                'relation' => 'OR',
+                [
+                    'key' => '_realestate_rewrite',
+                    'value' => true,
+                    'compare' => '!='
+                ],
+                [
+                    'key' => '_realestate_rewrite',
+                    'compare' => 'NOT EXISTS'
+                ]
+            ]
+        );
+        $query = new WP_Query( $args );
+
+        if ( $query->have_posts() ) {
+            update_option( 'parser_status_posts', true );
+            while ( $query->have_posts() ) {
+                $query->the_post();
+                $realestate_id = get_the_ID();
+                // $duplicate = $wpdb->get_row("SELECT post_id FROM $wpdb->postmeta WHERE meta_key = '_realestate_rewrite' AND meta_value = $realestate_id", ARRAY_A);
+
+                // if ( $duplicate ) {
+                //     continue;
+                // }
+
+                $desc_1 = $this->prepare_text( get_field('desc_slider_re') );
+                $desc_2 = $this->prepare_text( get_field('desc_arh_re') );
+
+                if ( empty($desc_1) && empty($desc_2) ) {
+                    continue;
+                }
+
+                $prepare_descriptions = [];
+                $desc_1_m = (!empty($desc_1)) ? array_push( $prepare_descriptions, 'rewrite this text in Russian no more than 250 characters without line breaks "'.$desc_1.'"' ) : '';
+                $desc_2_m = (!empty($desc_2)) ? array_push( $prepare_descriptions, 'rewrite this text in Russian no more than 250 characters without line breaks "'.$desc_2.'"' ) : '';
+                $rewrite_result = $this->rewrite_review($prepare_descriptions);
+
+                if ( $rewrite_result && isset($rewrite_result[0]) && $rewrite_result[0]->text && ! empty($desc_1) && empty($desc_2) ) {
+                    update_field('desc_slider_re', $rewrite_result[0]->text, $realestate_id); 
+                }
+                
+                if ( $rewrite_result && isset($rewrite_result[0]) && $rewrite_result[0]->text && ! empty($desc_2) && empty($desc_1) ) {
+                    update_field('desc_arh_re', $rewrite_result[0]->text, $realestate_id);
+                }
+                
+                if ( 
+                    $rewrite_result && 
+                    isset($rewrite_result[0]) && 
+                    isset($rewrite_result[1]) && 
+                    $rewrite_result[0]->text && 
+                    $rewrite_result[1]->text && 
+                    ! empty($desc_2) && 
+                    ! empty($desc_1) 
+                ) {
+                    update_field('desc_slider_re', $rewrite_result[0]->text, $realestate_id); 
+                    update_field('desc_arh_re', $rewrite_result[1]->text, $realestate_id); 
+                }
+
+                update_post_meta( $realestate_id, '_realestate_rewrite', true );
+
+            }
+        } else {
+            error_log(print_r('CLEAR CRON', true));
+            wp_clear_scheduled_hook( 'rewrite_realestate', [$page-1] );
+            wp_clear_scheduled_hook( 'rewrite_realestate', [$page] );
+            wp_clear_scheduled_hook( 'rewrite_realestate' );
+            update_option( 'parser_status_posts', false );
+
+            return false;
+        }
+
+        wp_reset_query();
+
+        $page++;
+        $time = microtime(true) - $start; 
+        error_log(print_r($time, true)); 
+        error_log(print_r('============================', true));
+        
+        // start next iteration
+        $this->set_shedule_rewrite_realestate($page);
+    }
+
+    public function prepare_text($text) {
+
+        $result = '';
+
+        if ( ! empty($text) ) {
+            $result = strip_tags($text);
+            $result = str_replace(["\r\n", "\r", "\n", "'"], '', $result);
+            // $result = mb_strimwidth($result, 0, 150, '');
+        }
+
+        return $result;
+    }
+
     public function set_shedule_insert_realestate($page) {
 
         // date_default_timezone_set('Asia/Tbilisi');
@@ -302,6 +410,18 @@ class UT_Parser {
         wp_clear_scheduled_hook( 'insert_realestate', [$page-1] );
         wp_clear_scheduled_hook( 'insert_realestate', [$page] );
         wp_schedule_event( $time, $interval, 'insert_realestate', [$page]);
+    }
+    
+    public function set_shedule_rewrite_realestate($page) {
+
+        // date_default_timezone_set('Asia/Tbilisi');
+        date_default_timezone_set('UTC');
+        $interval = 'every_15_minutes';
+        $time = time();
+        // remove shadule event for create new shedule with another interval
+        wp_clear_scheduled_hook( 'rewrite_realestate', [$page-1] );
+        wp_clear_scheduled_hook( 'rewrite_realestate', [$page] );
+        wp_schedule_event( $time, $interval, 'rewrite_realestate', [$page]);
     }
 
     public function upload_file_by_url( $image_url ) {
@@ -457,7 +577,7 @@ class UT_Parser {
         if ($response) {
             $json = json_decode($response);
 
-            if ($json->choices) {
+            if (isset($json->choices)) {
                 return $json->choices;
                 // foreach ($json->choices as $choice) {
                     // $text = $choice->text;

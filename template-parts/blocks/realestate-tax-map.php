@@ -68,7 +68,7 @@ $departments = get_field('department_rtaxm');
                                 $args = [
                                     'post_type' => 'realestate',
                                     'post_status' => 'publish',
-                                    'posts_per_page' => -1,
+                                    'posts_per_page' => 24,
                                     'tax_query' => [
                                         'relation' => 'AND',
                                         [

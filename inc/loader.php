@@ -16,6 +16,7 @@ class UT_Theme_Helper {
 
   	public $guneberg_blocks;
   	public $real_estate;
+  	public $real_estate_filter;
 	public $parser;
 
   	private function __construct() {
@@ -51,6 +52,7 @@ class UT_Theme_Helper {
 
 		$this->guneberg_blocks = UT_Guneberg_Blocks::get_instance();
 		$this->real_estate = UT_Real_Estate::get_instance();
+		$this->real_estate_filter = UT_Real_Estate_Filter::get_instance();
 		$this->parser = UT_Parser::get_instance();
 	}
 
@@ -166,6 +168,7 @@ class UT_Theme_Helper {
 		// include_once 'walker-nav-menu.php';
 		include_once 'class.gutenberg-blocks.php';
 		include_once 'class.realestate.php';
+		include_once 'class.realestate-filter.php';
 		include_once 'class.parser.php';
 	}
 
