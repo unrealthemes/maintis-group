@@ -149,3 +149,131 @@ div.wpcf7-spam-blocked::after {
     overflow: auto;
     height: 190px;
 }
+
+#currency_symbol,
+#sort {
+    display: none;
+}
+
+.navigation.pagination {
+    width: 100%;
+    display: block!important;
+    margin: 60px 0 0 0;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: center;
+}
+
+.page-numbers {
+    min-width: 50px;
+    height: 50px;
+    border: 1px solid #00AEF0;
+    font-size: 14px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+    color: #00AEF0;
+}
+
+.next.page-numbers {
+    right: 0;
+    background: url('img/arrow_right.svg') no-repeat center center;
+}
+
+.prev.page-numbers {
+    left: 0;
+    background: url('img/arrow_left.svg') no-repeat center center;
+}
+
+.page-numbers.current {
+    color: #ffffff;
+    background-color: #00AEF0;
+}
+
+.page-numbers:hover {
+    color: #ffffff;
+    background-color: #00AEF0;
+    text-decoration: none;
+}
+
+.next.page-numbers:hover {
+    background-color: #00AEF0 !important;
+    background: url('img/arrow_right_hover.svg') no-repeat center center;
+}
+
+.prev.page-numbers:hover {
+    background-color: #00AEF0 !important;
+    background: url('img/arrow_left_hover.svg') no-repeat center center;
+}
+
+#sale:hover + label[for="sale"] svg path,
+#eksklyuziv:hover + label[for="eksklyuziv"] svg path,
+#sale:checked + label[for="sale"] svg path,
+#eksklyuziv:checked + label[for="eksklyuziv"] svg path {
+    stroke: #fff;
+    opacity: 1;
+}
+
+#eksklyuziv:checked + label[for="eksklyuziv"] {
+    background: #00AEF0;
+    text-decoration: none!important;
+    cursor: pointer;
+    color: #fff;
+}
+
+#sale:checked + label[for="sale"] {
+    color: #fff!important;
+    background: #E45231;
+    border: 1px solid #E45231!important;
+}
+
+#eksklyuziv,
+#sale {
+    display: none;
+}
+
+label[for="sale"],
+label[for="eksklyuziv"] {
+    padding: 12px 20px;
+    margin-right: 18px;
+    display: flex;
+    justify-content: space-between;
+    width: 180px;
+    align-items: center;
+}
+
+.rowfilter_2 {
+    display: flex;
+    justify-content: flex-start;
+}
+
+@media only screen and (max-width: 879px) {
+    .rowfilter_2 {
+        margin-bottom: 80px;
+    }
+}
+
+@media only screen and (max-width: 435px) {
+    .rowfilter_2 {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    label[for="sale"],
+    label[for="eksklyuziv"] {
+        width: 100%;
+        margin-right: 0;
+    }
+
+    label[for="eksklyuziv"] {
+        margin-bottom: 20px;
+    }
+}
+
+.load_more_btn a {
+    width: 100%;
+}

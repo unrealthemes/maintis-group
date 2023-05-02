@@ -9,16 +9,4 @@
 
 ?>
 
-<section class="no-results not-found">
-
-	<h1 class="page-title"><?php esc_html_e( 'Nothing Found', 'unreal-themes' ); ?></h1>
-
-	<div class="page-content">
-
-		<p><?php esc_html_e( 'Sorry, but nothing matched your search terms. Please try again with some different keywords.', 'unreal-themes' ); ?></p>
-		
-		<?php get_search_form(); ?>
-
-	</div>
-
-</section>
+<h2 class="page-title">По вашим параметрам ничего не найдено.</h2>

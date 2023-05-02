@@ -40,9 +40,13 @@ $text = get_field('txt_text');
                 <div class="more_text">
                     <?php echo $text; ?>
                 </div> 
-                <div class="learn_more_text">
-                    <a class="learn_morebtn_text btn" href="#">Показать еще</a>
-                </div>   
+
+                <?php if ( strlen($text) > 585 ) : ?>
+                    <div class="learn_more_text">
+                        <a class="learn_morebtn_text btn" href="#">Показать еще</a>
+                    </div> 
+                <?php endif; ?>
+
             </div>
         </div>   
 

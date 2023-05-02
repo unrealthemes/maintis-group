@@ -189,9 +189,20 @@ function ut_breadcrumbs_args( $args ) {
 			'titlepatt' => '<li>%s</li>',
 			'seppatt'   => '',
 		],
-		'priority_tax' => [ 'product_cat' ],
+		'priority_tax' => [ 'department' ],
 	];
 
 	return $my_args + $args;
 }
 add_filter( 'kama_breadcrumbs_args', 'ut_breadcrumbs_args' );
+
+
+
+
+function ut_breadcrumbs_change_elements( $elms, $class, $ptype ) {
+
+	$elms['home_after'] = [];
+	
+	return $elms;
+}
+add_filter( 'kama_breadcrumbs_filter_elements', 'ut_breadcrumbs_change_elements', 10, 3 );

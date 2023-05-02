@@ -11,14 +11,12 @@ get_header();
 
 global $wp_query;
 
-// $tax_obj = $wp_query->get_queried_object();
-$find_txt = 'Найдено ' . ut_num_decline( $wp_query->found_posts, [ 'объект', 'объекты', 'объектов' ] );
+$params = [];
+$find_txt = 'Найдено ' . ut_num_decline( $wp_query->found_posts, [ 'объект', 'объекта', 'объектов' ] );
 
-// $args = ut_help()->real_estate_filter->get_args($_GET, $tax_obj);
-
-echo '<pre style="background:red;color:#fff;">';
-print_r( $_GET );
-echo '</pre>';
+// echo '<pre style="background:red;color:#fff;">';
+// print_r( $wp_query );
+// echo '</pre>';
 
 ?>
 
@@ -44,24 +42,8 @@ echo '</pre>';
                     </div>        
                     
                     <div class="cat_short">
-                        <div class="mobile_short">
-                            <a href="#" class="block_button" onclick="return false">
-                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M9.1665 4.16666H17.4998" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-									<path d="M9.1665 7.5H14.9998" stroke="blackopen_popup" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-									<path d="M9.1665 10.8333H12.4998" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-									<path d="M2.5 14.1667L5 16.6667L7.5 14.1667" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-									<path d="M5 15V3.33334" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg> 
-                                <span>Популярные</span>
-                            </a> 
-                            <div class="big">
-                                <a href="#">Популярные</a>
-                                <a href="#">Увеличение цены</a>
-                                <a href="#">Уменьшение цены</a>
-                                <a href="#">По дате</a>
-                            </div>  
-                        </div>
+
+						<?php get_template_part('template-parts/realestate/sort'); ?>
                          
                         <div class="tabs"> 
            
@@ -75,7 +57,7 @@ echo '</pre>';
                                     </svg>
                                     <span>Плиткой</span>
                                 </li>
-                                <li>
+                                <li id="init_map_filter">
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M2.5 5L7.5 2.5L12.5 5L17.5 2.5V15L12.5 17.5L7.5 15L2.5 17.5V5Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                         <path d="M7.5 2.5V15" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -97,22 +79,39 @@ echo '</pre>';
 												while ( have_posts() ) :
 													the_post();
 													get_template_part('template-parts/realestate/realestate', 'item');
+													$lat = get_field('latitude', get_the_ID());
+													$lng = get_field('longitude', get_the_ID());
+													
+													if ( $lat && $lng ) :
+														$params[] = [ $lat, $lng ];
+													endif;
 												endwhile;
 												?>
 												
 											</div>
-											<!-- <div class="learn_more_cat">
+
+											<!-- <div class="load_more_btn">
 												<a class="learn_morebtn btn" href="#">Показать еще</a>
-											</div>    -->
-											<div class="TEST">
-												<?php the_posts_pagination(); ?>
-											</div> 
+											</div>  -->
+
+											<?php 
+											the_posts_pagination([
+												'prev_text' => '',
+												'next_text' => '',
+											]); 
+											?>
+
 										</div> 
 										
 									</div>
 
 									<div>
-										<img src="<?php echo THEME_URI; ?>/img/map.jpg" alt="">
+										<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=0e22f693-ee8a-440d-96d7-df33d2b9e0a2" ></script>
+										<div id="yandex-map-filter" 
+											style="height:600px;width:100%;"
+											data-status=""
+											data-params="<?php echo esc_attr( wp_json_encode($params) ); ?>"
+										></div>
 									</div>
 									
 								</div>
