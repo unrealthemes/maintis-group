@@ -16,6 +16,7 @@ class UT_Theme_Helper {
 
   	public $guneberg_blocks;
   	public $real_estate;
+  	public $real_estate_filter;
 	public $parser;
 
   	private function __construct() {
@@ -51,6 +52,7 @@ class UT_Theme_Helper {
 
 		$this->guneberg_blocks = UT_Guneberg_Blocks::get_instance();
 		$this->real_estate = UT_Real_Estate::get_instance();
+		$this->real_estate_filter = UT_Real_Estate_Filter::get_instance();
 		$this->parser = UT_Parser::get_instance();
 	}
 
@@ -126,7 +128,15 @@ class UT_Theme_Helper {
 		wp_enqueue_script( 'ut-jqueryui', THEME_URI . '/js/jquery-ui.js', ['jquery'], date("Ymd"), true );
 		wp_enqueue_script( 'ut-owl-carusel', THEME_URI . '/js/owl.carousel.min.js', ['jquery'], date("Ymd"), true );
 		wp_enqueue_script( 'ut-intlTelInputmin', THEME_URI . '/js/intlTelInput.min.js', ['jquery'], date("Ymd"), true );
+
 		wp_enqueue_script( 'ut-custom', THEME_URI . '/js/custom.js', ['jquery'], date("Ymd"), true );
+		wp_localize_script( 
+			'ut-custom', 
+			'ut_params', [
+				'ajax_url' => admin_url( 'admin-ajax.php' ),
+				'ajax_nonce' => wp_create_nonce( 'ut_check' ),
+			] 
+		);
 
 		wp_enqueue_script( 'ut-scripts', THEME_URI . '/js/scripts.js', ['jquery'], date("Ymd"), true );
 		wp_localize_script( 
@@ -166,6 +176,7 @@ class UT_Theme_Helper {
 		// include_once 'walker-nav-menu.php';
 		include_once 'class.gutenberg-blocks.php';
 		include_once 'class.realestate.php';
+		include_once 'class.realestate-filter.php';
 		include_once 'class.parser.php';
 	}
 

@@ -110,24 +110,24 @@ add_filter('admin_footer_text', 'ut_remove_footer_admin');
  *
  */
 
-function ut_format_size_units( $bytes ) {
+// function ut_format_size_units( $bytes ) {
 
-    if ( $bytes >= 1073741824 ) {
-        $bytes = number_format( $bytes / 1073741824, 2 ) . ' GB';
-    } elseif ( $bytes >= 1048576 ) {
-        $bytes = number_format( $bytes / 1048576, 2 ) . ' MB';
-    } elseif ( $bytes >= 1024 ) {
-        $bytes = number_format( $bytes / 1024, 2 ) . ' KB';
-    } elseif ( $bytes > 1 ) {
-        $bytes = $bytes . ' bytes';
-    } elseif ( $bytes == 1 ) {
-        $bytes = $bytes . ' byte';
-    } else {
-        $bytes = '0 bytes';
-    }
+//     if ( $bytes >= 1073741824 ) {
+//         $bytes = number_format( $bytes / 1073741824, 2 ) . ' GB';
+//     } elseif ( $bytes >= 1048576 ) {
+//         $bytes = number_format( $bytes / 1048576, 2 ) . ' MB';
+//     } elseif ( $bytes >= 1024 ) {
+//         $bytes = number_format( $bytes / 1024, 2 ) . ' KB';
+//     } elseif ( $bytes > 1 ) {
+//         $bytes = $bytes . ' bytes';
+//     } elseif ( $bytes == 1 ) {
+//         $bytes = $bytes . ' byte';
+//     } else {
+//         $bytes = '0 bytes';
+//     }
 
-    return $bytes;
-}
+//     return $bytes;
+// }
 
 
 
@@ -169,12 +169,25 @@ function ut_mime_type_without_application( $default_mime_type ) {
  * Cancel the display of the selected term at the top in the checkbox list of terms
  */
 
-function ut_set_checked_ontop_default( $args ) {
-	// change the default parameter to false
-	if ( ! isset( $args['checked_ontop'] ) ) {
-		$args['checked_ontop'] = false;
-	}
+// function ut_set_checked_ontop_default( $args ) {
+// 	// change the default parameter to false
+// 	if ( ! isset( $args['checked_ontop'] ) ) {
+// 		$args['checked_ontop'] = false;
+// 	}
 
-	return $args;
+// 	return $args;
+// }
+// add_filter( 'wp_terms_checklist_args', 'ut_set_checked_ontop_default', 10 );
+
+
+
+
+function ut_kama_breadcrumbs_args( $args ) {
+	
+	$ut_args = [
+		'priority_tax' => [ 'department' ],
+	];
+	
+	return $ut_args + $args;
 }
-add_filter( 'wp_terms_checklist_args', 'ut_set_checked_ontop_default', 10 );
+add_filter( 'kama_breadcrumbs_args', 'ut_kama_breadcrumbs_args' );

@@ -21,6 +21,7 @@ if ( !empty($block['align']) ) {
     $className .= ' align' . $block['align'];
 }
 
+$title = get_field('title_blocks4');
 $blocks = get_field('blocks4');
 ?>
 
@@ -35,6 +36,11 @@ $blocks = get_field('blocks4');
     <?php if ( $blocks ) : ?>
         
         <div id="<?php echo esc_attr($id); ?>" class="<?php echo esc_attr($className); ?>">  
+
+            <?php if ($title) : ?>
+                <h3><?php echo esc_html($title); ?></h3>
+            <?php endif; ?>
+
             <div class="jobs_row"> 
 
                 <?php 

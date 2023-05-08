@@ -61,16 +61,22 @@ $count = get_field('count_bre');
                         <div class="row_10_di object_list">
 
                             <?php 
+                            $i = 1;
                             while ( $loop->have_posts() ) : 
                                 $loop->the_post(); 
-                                get_template_part('template-parts/realestate/realestate', 'item');
+                                get_template_part('template-parts/realestate/realestate', 'item', ['count' => $i, 'class' => 'object_item']);
+                                $i++;
                             endwhile; 
                             ?> 
 
                         </div>
-                        <div class="learn_more">
-                            <a class="learn_morebtn btn" href="#">Показать еще</a>
-                        </div>  
+
+                        <?php if ( $loop->found_posts > 6 ) : ?>
+                            <div class="learn_more">
+                                <a class="learn_morebtn btn" href="#">Показать еще</a>
+                            </div>  
+                        <?php endif; ?>
+
                     </div>
                 </div> 
             </div>

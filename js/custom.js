@@ -418,6 +418,43 @@ if (input) {
     
         checkboxes.on('change', function() {
           updateDropdownToggle();
+          
+          if ( $(this).attr('name') == 'ut_country[]' || $(this).attr('name') == 'ut_city[]' ) {
+
+            $('#realestate_form').submit();
+
+          } else if ( 
+            $(this).attr('name') == 'ut_department[]' || 
+            $(this).attr('name') == 'ut_highway[]' ||
+            $(this).attr('name') == 'ut_rooms[]' ||
+            $(this).attr('name') == 'ut_bathrooms[]' ||
+            $(this).attr('name') == 'ut_bedrooms[]' ||
+            $(this).attr('name') == 'ut_typeMarket[]' ||
+            $(this).attr('name') == 'ut_finishing[]' ||
+            $(this).attr('name') == 'ut_type[]'
+          ) {
+
+            let data = {
+                action     : 'ut_count_filter',
+                ajax_nonce : ut_params.ajax_nonce,
+                form       : $('#realestate_form').serialize(),
+            };
+
+            $.ajax({
+                url  : ut_params.ajax_url,
+                data : data,
+                type : 'POST',
+                beforeSend: function() {},
+                success: function( response ) {
+
+                    if ( response.success ) {
+                        $('.btn_found_posts').html( 'Показать ' + response.data.found_posts );
+                    }
+                }
+            });
+
+          }
+
         });
     
         searchInput.on('input', function() {

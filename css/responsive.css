@@ -247,7 +247,7 @@ Tablet and Mobile
     .cat_filter .catalog_filter_top_row {grid-row-gap: 0;row-gap: 15px;background-color: #fff;border-radius: 16px;grid-template-columns: 1fr;}
     .cat_filter .dropdown-toggle {max-width: 100%;}
     .open_popup_content .filter_row {grid-template-columns: 1fr 1fr; grid-row-gap: 10px;}
-    .open_popup_content {height: 100%; padding: 30px;} 
+    .open_popup_content {height: 100%;padding: 30px;overflow: auto;} 
     .rowfilter_2 a span {font-size: 14px;}
     .cat_short_object .block_title, .mobile_short {display: none!important;}
     .rowfilter_2 a {margin:5px 0;\text-align: left;justify-content: center;padding: 7px 10px;}
@@ -328,6 +328,7 @@ Tablet and Mobile
     .service3 .top_baner {padding: 25px;}
     .content_pages .o_komplecse ul {grid-template-columns: 1fr;}
     .content_pages .o_komplecse ul li {/* margin: 0 0 5px 0!important; */}
+    .owl-carousel.owl-drag .owl-item .object_desc {min-height: 160px;}
  }
  
 @media only screen and (max-width: 568px){
@@ -384,6 +385,8 @@ Tablet and Mobile
     .garant_brand a {min-height: 80px; border-radius: 15px;}
     .top_baner_for .top_baner_two_item_vn {  bottom: 15px; left: 20px; right: 20px;}
     .jobs_item {min-height: auto;}
+    .owl-carousel.owl-drag .owl-item .object_desc {min-height: inherit;}
+    .filter_row_btn {     gap: 20px;   grid-template-columns: repeat(1,1fr);}
 }
 
 

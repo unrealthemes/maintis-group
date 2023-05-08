@@ -4,10 +4,139 @@ let ENTITY = {
 
     init: function init() {
 
-        // ENTITY.save_form();
         ENTITY.change_price();
+        ENTITY.change_currency_symbols();
+        ENTITY.map_filter();
+        ENTITY.block_filter();
         ENTITY.init_maps();
         ENTITY.reinit_map();
+        ENTITY.show_more_btn();
+
+        $('input[name="dealType"]').on('change', function() {
+            $('#realestate_form').submit();
+        });
+        
+        $('#eksklyuziv, #sale').on('change', function() {
+            $('#realestate_form').submit();
+        });
+
+        $('input[name="price_from"], input[name="price_to"]').on('click', function() { 
+            $('#realestate_form').submit();
+        });
+
+        $('input[name="area_from"], input[name="area_to"]').on('change', function() { 
+            let data = {
+                action     : 'ut_count_filter',
+                ajax_nonce : ut_params.ajax_nonce,
+                form       : $('#realestate_form').serialize(),
+            };
+
+            $.ajax({
+                url  : ut_params.ajax_url,
+                data : data,
+                type : 'POST',
+                beforeSend: function() {},
+                success: function( response ) {
+
+                    if ( response.success ) {
+                        $('.btn_found_posts').html( 'Показать ' + response.data.found_posts );
+                    }
+                }
+            });
+        });
+        
+        $('input[name="floor_from"], input[name="floor_to"]').on('change', function() { 
+            let data = {
+                action     : 'ut_count_filter',
+                ajax_nonce : ut_params.ajax_nonce,
+                form       : $('#realestate_form').serialize(),
+            };
+
+            $.ajax({
+                url  : ut_params.ajax_url,
+                data : data,
+                type : 'POST',
+                beforeSend: function() {},
+                success: function( response ) {
+
+                    if ( response.success ) {
+                        $('.btn_found_posts').html( 'Показать ' + response.data.found_posts );
+                    }
+                }
+            });
+        });
+
+    },
+
+    block_filter: function block_filter() {
+
+        $('input[name="dealType"]').on('change', function() {
+            ENTITY.update_count_filter();
+        });
+
+        $('input[name="price_from"], input[name="price_to"]').on('click', function() { 
+            ENTITY.update_count_filter();
+        });
+        
+        $('input[name="area_from"], input[name="area_to"]').on('click', function() { 
+            ENTITY.update_count_filter();
+        });
+
+        $('.dropdown-toggle').each(function() {
+            const dropdownToggle = $(this);
+            const dropdownMenu = dropdownToggle.siblings('.dropdown-menu');
+            const checkboxes = dropdownMenu.find('input[type="checkbox"]');
+            checkboxes.on('change', function() {
+                if ( 
+                    $(this).attr('name') == 'ut_highway[]' ||
+                    $(this).attr('name') == 'ut_typeMarket[]'
+                ) {
+                    ENTITY.update_count_filter();
+                }
+            });
+        });
+        
+    },
+
+    update_count_filter: function update_count_filter() {
+        let data = {
+            action     : 'ut_count_filter',
+            ajax_nonce : ut_params.ajax_nonce,
+            form       : $('#realestate_block_form').serialize(),
+        };
+
+        $.ajax({
+            url  : ut_params.ajax_url,
+            data : data,
+            type : 'POST',
+            beforeSend: function() {},
+            success: function( response ) {
+
+                if ( response.success ) {
+                    $('.btn_block_found_posts').html( 'Показать ' + response.data.found_posts );
+                }
+            }
+        });
+    },
+
+    show_more_btn: function show_more_btn() {
+
+        $('.show_more_btn').on('click', function(e) {
+            e.preventDefault();
+            $(this).parent().parent().find('.object_list .item').show();
+            $(this).hide();
+        });
+
+    },
+
+    change_currency_symbols: function change_currency_symbols() {
+
+        $('.base-currency__dropdown-item').on('click', function() {
+
+            var currency = $(this).data('currency');
+            $('#currency_symbol').val(currency);
+            $('#realestate_form').submit();
+        });
     },
 
     change_price: function change_price() {
@@ -24,26 +153,55 @@ let ENTITY = {
         });
     },
 
-    init_maps: function init_maps() {
+    map_filter: function map_filter() {
 
-        ymaps.ready(function () {
+        if ( $('#init_map_filter').length ) {
+            $('#init_map_filter').on('click', function() {
+                var id = 'yandex-map-filter';
+                let data = {
+                    action     : 'ut_map_filter',
+                    ajax_nonce : ut_params.ajax_nonce,
+                    form       : $('#realestate_form').serialize(),
+                };
 
-            var maps = $('.yandex--map');
+                $.ajax({
+                    url  : ut_params.ajax_url,
+                    data : data,
+                    type : 'POST',
+                    beforeSend: function() {},
+                    success: function( response ) {
 
-            if ( maps.length ) {
-                maps.each( function( index ) {
-                    let id = $(this).attr('id');
-                    let count = $(this).data('count');
-                    let params = $(this).data('params');
-
-                    if (count == 1) {
-                        ENTITY.map_handler( id, params );
-                        $('#' + id).attr('data-status', 'load');
+                        if ( response.success ) {
+                            $('#' + id).empty();
+                            ENTITY.map_handler( id, response.data.params );
+                        }
                     }
                 });
-            }
+            });
 
-        });
+        }
+    },
+
+    init_maps: function init_maps() {
+
+        if ( $('.yandex--map').length ) {
+            ymaps.ready(function () {
+                var maps = $('.yandex--map');
+
+                if ( maps.length ) {
+                    maps.each( function( index ) {
+                        let id = $(this).attr('id');
+                        let count = $(this).data('count');
+                        let params = $(this).data('params');
+
+                        if (count == 1) {
+                            ENTITY.map_handler( id, params );
+                            $('#' + id).attr('data-status', 'load');
+                        }
+                    });
+                }
+            });
+        }
 
     },
 
@@ -109,37 +267,6 @@ let ENTITY = {
             checkZoomRange: true
         });
     }
-
-    // save_form: function save_form() {
-
-    //     $('#form').submit( function( e ) {
-
-    //         e.preventDefault();
-    //         let data = {
-    //             action     : 'ut_save_form',
-    //             ajax_nonce : ut_params.ajax_nonce,
-    //             form       : $('#form').serialize(),
-    //         };
-
-    //         $.ajax({
-    //             url  : ut_params.ajaxurl,
-    //             data : data,
-    //             type : 'POST',
-    //             beforeSend: function() {
-    //                 let overlay = $('<div id="overlay_form"><img src="' + ut_params.get_template_directory_uri + '/images/preloader.gif"></div>');
-    //                     overlay.appendTo('#form');
-    //                 $('button[name="form"]').attr( "disabled", true ); 
-    //             },
-    //             success: function( response ) {
-
-    //                 if ( response.success ) {
-    //                     $('#overlay_form').remove();
-    //                     $('button[name="form"]').removeAttr("disabled");
-    //                 }
-    //             }
-    //         });
-    //     });
-    // },
 
 };
 

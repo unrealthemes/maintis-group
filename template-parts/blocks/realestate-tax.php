@@ -44,7 +44,7 @@ $departments = get_field('department_rtax');
                         <h3><?php echo esc_html($title); ?></h3> 
                     </div>  
                 <?php endif; ?>
-                
+
                 <?php if ($departments) : ?>
                     <div class="cat_short">  
                         <div class="tabs"> 
@@ -61,7 +61,7 @@ $departments = get_field('department_rtax');
                                     $args = [
                                         'post_type' => 'realestate',
                                         'post_status' => 'publish',
-                                        'posts_per_page' => -1,
+                                        'posts_per_page' => 24,
                                         'tax_query' => [
                                             'relation' => 'AND',
                                             [
@@ -85,16 +85,18 @@ $departments = get_field('department_rtax');
                                             <div class="row_10_di object_list">
                                             
                                                 <?php 
+                                                $j = 1;
                                                 while ( $loop->have_posts() ) : 
                                                     $loop->the_post(); 
-                                                    get_template_part('template-parts/realestate/realestate', 'item');
+                                                    get_template_part('template-parts/realestate/realestate', 'item', ['count' => $j]);
+                                                    $j++;
                                                 endwhile; 
                                                 ?> 
                                                 
                                             </div>
                                              
                                             <div class="learn_more_cat">
-                                                <a class="learn_morebtn btn" href="#">Показать еще</a>
+                                                <a class="show_more_btn btn" href="#">Показать еще</a>
                                             </div>   
 
                                         </div>       

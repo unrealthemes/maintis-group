@@ -78,9 +78,13 @@ get_header();
                             <div class="more_text_litle">
                                 <?php echo $desc_slider; ?>
                             </div> 
-                            <div class="learn_more_text_litle">
-                                <a class="learn_morebtn_text_litle btn" href="#">Показать еще</a>
-                            </div> 
+
+                            <?php if ( strlen($desc_slider) > 1595 ) : ?>
+                                <div class="learn_more_text_litle">
+                                    <a class="learn_morebtn_text_litle btn" href="#">Показать еще</a>
+                                </div> 
+                            <?php endif; ?>
+
                         <?php endif; ?>
                         
                         <?php get_template_part('template-parts/realestate/about'); ?>

@@ -22,6 +22,7 @@ if ( !empty($block['align']) ) {
 }
 
 $title = get_field('title_yreviews');
+$code = get_field('code_yreviews');
 $video_preview_id = get_field('video_preview_yreviews');
 $video = get_field('video_yreviews');
 $img_info_id = get_field('img_info_yreviews');
@@ -48,9 +49,11 @@ $link_info = get_field('link_info_yreviews');
 
         <div class="main_reviews"> 
 
-            <div class="col_review">
-                <img src="<?php echo THEME_URI; ?>/img/yandex.jpg" alt="Yandex">
-            </div>
+            <?php if ( $code ) : ?>
+                <div class="col_review">
+                    <?php echo $code; ?>
+                </div>
+            <?php endif; ?>
 
             <div class="col_right">
 

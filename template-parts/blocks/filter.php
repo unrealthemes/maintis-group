@@ -21,8 +21,8 @@ if ( !empty($block['align']) ) {
     $className .= ' align' . $block['align'];
 }
 
-// $title = get_field('title_ms');
-// $blocks = get_field('blocks_ms');
+$pages = get_field('pages_filter');
+$links = get_field('links_filter');
 ?>
 
 <?php if ( !empty( $_POST['query']['preview'] ) ) : ?>
@@ -37,189 +37,45 @@ if ( !empty($block['align']) ) {
         <div class="row_di"> 
             <div class="tabs">
                 <ul> 
-                    <li>Городская</li>
-                    <li>Загородная</li>
-                    <li>ОАЭ</li>
-                    <li>Коммерческая</li>
+                    <li>Москва</li>
+
+                    <?php if ($pages) : ?>
+                        <?php foreach ($pages as $page) : ?>
+                            <li>
+                                <a href="<?php echo esc_url(get_the_permalink($page)); ?>">
+                                    <?php echo esc_html(get_the_title($page)); ?>
+                                </a>
+                            </li>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+
                 </ul>
                 <div class="tabs_content">
+
                     <div>
-                        <div class="catalog_filter_top_wrap"> 
-               
-                            <div class="catalog_filter_top_row"> 
-
-                                <div class="filter">
-                                    <div class="prod_checbox">   
-                                        <input type="radio" id="radio1" name="radios" value="Продажа" checked>
-                                        <label for="radio1">Продажа</label> 
-                                        <input type="radio" id="radio2" name="radios" value="Аренда">
-                                        <label for="radio2">Аренда</label>  
-                                    </div> 
-                                </div>
-
-                                <div class="dropdown">
-                                    <div class="dropdown-toggle" >
-                                        Новостройки и вторичка 
-                                    </div> 
-                                    <div class="dropdown-menu dicustom-checkbox">
-                                        <div class="dropdown-search">
-                                            <input type="text" placeholder="Поиск...">
-                                        </div>
-                                    
-                                        <label class="dropdown-item"><input type="checkbox"   value="Новостройки и вторичка">  
-                                            <div class="dicustom-checkbox__label">
-                                                Новостройки и вторичка
-                                            </div>
-                                            </label>
-                                        <label class="dropdown-item"><input type="checkbox" value="Новостройки">  
-                                            <div class="dicustom-checkbox__label">
-                                                Новостройки
-                                            </div>
-                                            </label>
-                                        <label class="dropdown-item"><input type="checkbox" value="Вторичка">  
-                                            <div class="dicustom-checkbox__label">
-                                                Вторичка
-                                            </div>
-                                            </label>
-                                    </div>
-                                </div>
-
-                                <div class="dropdown dropdown_2">
-                                        <div class="dropdown-toggle" >
-                                            Все типы
-                                        </div> 
-                                        <div class="dropdown-menu dicustom-checkbox">
-                                            <div class="dropdown-search">
-                                                <input type="text" placeholder="Поиск...">
-                                            </div>
-                                        
-                                            <label class="dropdown-item"><input type="checkbox" value="Все типы">  
-                                                <div class="dicustom-checkbox__label">
-                                                    Все типы
-                                                </div>
-                                                </label>
-                                            <label class="dropdown-item"><input type="checkbox" value="Тип 1">  
-                                                <div class="dicustom-checkbox__label">
-                                                    Тип 1
-                                                </div>
-                                                </label>
-                                            <label class="dropdown-item"><input type="checkbox" value="Тип 2">  
-                                                <div class="dicustom-checkbox__label">
-                                                    Тип 2
-                                                </div>
-                                                </label>
-                                            <label class="dropdown-item"><input type="checkbox" value="Тип 3">  
-                                                <div class="dicustom-checkbox__label">
-                                                    Тип 3
-                                                </div>
-                                                </label>
-                                        </div>
-                                </div>
-                                
-                                <div class="dropdown dropdown_3">
-                                    <div class="dropdown-toggle">
-                                        Все районы
-                                    </div> 
-                                    <div class="dropdown-menu dicustom-checkbox">
-                                        <div class="dropdown-search">
-                                            <input type="text" placeholder="Поиск...">
-                                        </div>
-                                        
-                                        <label class="dropdown-item"><input type="checkbox" value="Все районы 1">  
-                                            <div class="dicustom-checkbox__label">
-                                                Все районы 1
-                                            </div>
-                                            </label>
-                                        <label class="dropdown-item"><input type="checkbox" value="Все районы 2">  
-                                            <div class="dicustom-checkbox__label">
-                                                Все районы 2
-                                            </div>
-                                            </label>
-                                        <label class="dropdown-item"><input type="checkbox" value="Все районы 3">  
-                                            <div class="dicustom-checkbox__label">
-                                                Все районы 3
-                                            </div>
-                                            </label>
-                                        <label class="dropdown-item"><input type="checkbox" value="Все районы 4">  
-                                            <div class="dicustom-checkbox__label">
-                                                Все районы
-                                            </div>
-                                        </label>
-                                    </div>
-                                </div>
-
-                            </div>
-                              
-                            <div class="catalog_filter_niz_row">
- 
-                                <div class="base-range-input__wrap">
-                                    <div class="base-range-input__label-wrap">
-                                        <label class="base-range-input__label">
-                                            <input placeholder="Цена от" class="base-range-input__control">
-                                        </label>
-                                    </div>
-                                    
-                                    <div class="base-range-input__delimiter">- до</div>
-                                    
-                                    <div class="base-range-input__label-wrap">
-                                        <div class="base-range-input__label">
-                                            <input placeholder="" class="base-range-input__control">
-                                        </div>
-                                    </div>
-                                    <div class="base-currency">
-                                        <button type="button" class="base-currency__btn"> ₽ </button>
-                                        <div class="base-currency__dropdown">
-                                            <button type="button" class="base-currency__dropdown-item"> ₽ </button>
-                                            <button type="button" class="base-currency__dropdown-item"> $ </button>
-                                            <button type="button" class="base-currency__dropdown-item"> € </button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="base-range-input__wrap">
-                                    <div class="base-range-input__label-wrap">
-                                        <label class="base-range-input__label">
-                                            <input placeholder="Цена от" class="base-range-input__control">
-                                        </label>
-                                    </div>
-                                    
-                                    <div class="base-range-input__delimiter">- до</div>
-                                    
-                                    <div class="base-range-input__label-wrap">
-                                        <div class="base-range-input__label">
-                                            <input placeholder="" class="base-range-input__control">
-                                        </div>
-                                    </div>
-                                    <div class="base-size">
-                                        м²
-                                    </div>
-                                </div>
-                                
-                                <button class="btn_blue">Показать 2086</button>
-                            </div>    
-                        </div>
+                        <?php get_template_part('template-parts/blocks/filter', 'panel'); ?> 
                     </div>
-                    <div>Второе содержимое</div>
+
+                    <!-- <div>Второе содержимое</div>
                     <div>Третье содержимое</div>
-                    <div>4 содержимое</div>
+                    <div>4 содержимое</div> -->
+
                 </div>
             </div>
         </div>
         
-        <div class="row home_cat">
-            <a href="#">Квартиры жк вишневый сад</a>
-            <a href="#">Купить квартиру в центре москвы</a>
-            <a href="#">Квартиры жк садовые кварталы</a>
-            <a href="#">Двухуровневые квартиры в москве</a>
-            <a href="#">Купить лофт в Москве</a>
-            <a href="#">Купить квартиру на патриарших прудах </a>
-            <a href="#">Купить пентхаус в москве</a>
-            <a href="#">Двухуровневые апартаменты купить</a>
-            <a href="#">Купить апартаменты в москва сити</a>
-        </div>
+        <?php if ($links) : ?>
+            <div class="row home_cat">
+            
+                <?php foreach ($links as $link) : ?>
+                    <a href="<?php echo esc_url($link['link_links_filter']); ?>">
+                        <?php echo esc_html($link['txt_links_filter']); ?>
+                    </a>
+                <?php endforeach; ?>
+
+            </div>
+        <?php endif; ?>
         
     </div>
 
 <?php endif; ?>
-
-
