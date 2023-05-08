@@ -14,7 +14,7 @@
 // $loop = new WP_Query( $args );
 // wp_reset_postdata(); 
 
-$highways = get_terms( 'highway', [
+$site_dstricts = get_terms( 'site_dstrict', [
     'orderby' => 'name',
     'order' => 'ASC',
     'hide_empty' => 1,
@@ -32,10 +32,10 @@ $highways = get_terms( 'highway', [
             <div class="filter">
                 <div class="prod_checbox">   
                     
-                    <input type="radio" id="radio1" name="dealType" value="Продажа" <?php echo ( (isset($_GET['dealType']) && 'Продажа' == $_GET['dealType']) ? 'checked' : '' ); ?>>
+                    <input type="radio" id="radio1" name="dealType" value="Продажа" checked>
                     <label for="radio1">Продажа</label> 
 
-                    <input type="radio" id="radio2" name="dealType" value="Аренда" <?php echo ( (isset($_GET['dealType']) && 'Аренда' == $_GET['dealType']) ? 'checked' : '' ); ?>>
+                    <input type="radio" id="radio2" name="dealType" value="Аренда">
                     <label for="radio2">Аренда</label> 
 
                 </div> 
@@ -74,26 +74,113 @@ $highways = get_terms( 'highway', [
                 </div>
             </div>
 
-            <!-- Highway -->
-            <?php if ($highways) : ?>
+            <!-- Type -->
+            <div class="dropdown">
+                <div class="dropdown_title">Объект</div>
+                <div class="dropdown-toggle" >
+                    Все типы
+                </div> 
+                <div class="dropdown-menu dicustom-checkbox">
+                    <div class="dropdown-search">
+                        <input type="text" placeholder="Поиск...">
+                    </div>
+
+                    <label class="dropdown-item">
+                        <input type="checkbox" name="ut_type[]" value="Апартаменты" <?php echo ( (isset($_GET['ut_type']) && in_array('Апартаменты', $_GET['ut_type'])) ? 'checked' : '' ); ?>>  
+                        <div class="dicustom-checkbox__label">
+                            Апартаменты
+                        </div>
+                    </label>
+                    <label class="dropdown-item">
+                        <input type="checkbox" name="ut_type[]" value="Арендный бизнес" <?php echo ( (isset($_GET['ut_type']) && in_array('Арендный бизнес', $_GET['ut_type'])) ? 'checked' : '' ); ?>>  
+                        <div class="dicustom-checkbox__label">
+                            Арендный бизнес
+                        </div>
+                    </label>
+                    <label class="dropdown-item">
+                        <input type="checkbox" name="ut_type[]" value="Дом" <?php echo ( (isset($_GET['ut_type']) && in_array('Дом', $_GET['ut_type'])) ? 'checked' : '' ); ?>>  
+                        <div class="dicustom-checkbox__label">
+                            Дом
+                        </div>
+                    </label>
+                    <label class="dropdown-item">
+                        <input type="checkbox" name="ut_type[]" value="Квартира" <?php echo ( (isset($_GET['ut_type']) && in_array('Квартира', $_GET['ut_type'])) ? 'checked' : '' ); ?>>  
+                        <div class="dicustom-checkbox__label">
+                            Квартира
+                        </div>
+                    </label>
+                    <label class="dropdown-item">
+                        <input type="checkbox" name="ut_type[]" value="Лофт" <?php echo ( (isset($_GET['ut_type']) && in_array('Лофт', $_GET['ut_type'])) ? 'checked' : '' ); ?>>  
+                        <div class="dicustom-checkbox__label">
+                            Лофт
+                        </div>
+                    </label>
+                    <label class="dropdown-item">
+                        <input type="checkbox" name="ut_type[]" value="Машиноместо" <?php echo ( (isset($_GET['ut_type']) && in_array('Машиноместо', $_GET['ut_type'])) ? 'checked' : '' ); ?>>  
+                        <div class="dicustom-checkbox__label">
+                            Машиноместо
+                        </div>
+                    </label>
+                    <label class="dropdown-item">
+                        <input type="checkbox" name="ut_type[]" value="Особняк" <?php echo ( (isset($_GET['ut_type']) && in_array('Особняк', $_GET['ut_type'])) ? 'checked' : '' ); ?>>  
+                        <div class="dicustom-checkbox__label">
+                            Особняк
+                        </div>
+                    </label>
+                    <label class="dropdown-item">
+                        <input type="checkbox" name="ut_type[]" value="Пентхаус" <?php echo ( (isset($_GET['ut_type']) && in_array('Пентхаус', $_GET['ut_type'])) ? 'checked' : '' ); ?>>  
+                        <div class="dicustom-checkbox__label">
+                            Пентхаус
+                        </div>
+                    </label>
+                    <label class="dropdown-item">
+                        <input type="checkbox" name="ut_type[]" value="Помещение свободного назначения" <?php echo ( (isset($_GET['ut_type']) && in_array('Помещение свободного назначения', $_GET['ut_type'])) ? 'checked' : '' ); ?>>  
+                        <div class="dicustom-checkbox__label">
+                            Помещение свободного назначения
+                        </div>
+                    </label>
+                    <label class="dropdown-item">
+                        <input type="checkbox" name="ut_type[]" value="Пулл машиномест" <?php echo ( (isset($_GET['ut_type']) && in_array('Пулл машиномест', $_GET['ut_type'])) ? 'checked' : '' ); ?>>  
+                        <div class="dicustom-checkbox__label">
+                            Пулл машиномест
+                        </div>
+                    </label>
+                    <label class="dropdown-item">
+                        <input type="checkbox" name="ut_type[]" value="Резиденция" <?php echo ( (isset($_GET['ut_type']) && in_array('Резиденция', $_GET['ut_type'])) ? 'checked' : '' ); ?>>  
+                        <div class="dicustom-checkbox__label">
+                            Резиденция
+                        </div>
+                    </label>
+                    <label class="dropdown-item">
+                        <input type="checkbox" name="ut_type[]" value="Таунхаус" <?php echo ( (isset($_GET['ut_type']) && in_array('Таунхаус', $_GET['ut_type'])) ? 'checked' : '' ); ?>>  
+                        <div class="dicustom-checkbox__label">
+                            Таунхаус
+                        </div>
+                    </label>
+
+                </div>
+            </div>
+
+            <!-- Site District -->
+            <?php if ($site_dstricts) : ?>
                 <div class="dropdown">
-                    <div class="dropdown_title">Шоссе</div>
+                    <div class="dropdown_title">Район</div>
                     <div class="dropdown-toggle" >
-                        Все шоссе
+                        Все районы
                     </div> 
                     <div class="dropdown-menu dicustom-checkbox">
                         <div class="dropdown-search">
                             <input type="text" placeholder="Поиск...">
                         </div>
                         
-                        <?php foreach ($highways as $highway) : ?>
+                        <?php foreach ($site_dstricts as $site_dstrict) : ?>
                             <label class="dropdown-item">
                                 <input  type="checkbox" 
-                                        name="ut_highway[]" 
-                                        value="<?php echo esc_attr($highway->name); ?>"
-                                        <?php echo ( (isset($_GET['ut_highway']) && in_array($highway->name, $_GET['ut_highway'])) ? 'checked' : '' ); ?>>  
+                                        name="ut_site_dstrict[]" 
+                                        value="<?php echo esc_attr($site_dstrict->name); ?>"
+                                        <?php echo ( (isset($_GET['ut_site_dstrict']) && in_array($site_dstrict->name, $_GET['ut_site_dstrict'])) ? 'checked' : '' ); ?>>  
                                 <div class="dicustom-checkbox__label">
-                                    <?php echo esc_html($highway->name); ?>
+                                    <?php echo esc_html($site_dstrict->name); ?>
                                 </div>
                             </label>
                         <?php endforeach ?>
@@ -101,38 +188,6 @@ $highways = get_terms( 'highway', [
                     </div>
                 </div>
             <?php endif; ?>
-            
-            <!-- <div class="dropdown dropdown_3">
-                <div class="dropdown-toggle">
-                    Все районы
-                </div> 
-                <div class="dropdown-menu dicustom-checkbox">
-                    <div class="dropdown-search">
-                        <input type="text" placeholder="Поиск...">
-                    </div>
-                    
-                    <label class="dropdown-item"><input type="checkbox" value="Все районы 1">  
-                        <div class="dicustom-checkbox__label">
-                            Все районы 1
-                        </div>
-                        </label>
-                    <label class="dropdown-item"><input type="checkbox" value="Все районы 2">  
-                        <div class="dicustom-checkbox__label">
-                            Все районы 2
-                        </div>
-                        </label>
-                    <label class="dropdown-item"><input type="checkbox" value="Все районы 3">  
-                        <div class="dicustom-checkbox__label">
-                            Все районы 3
-                        </div>
-                        </label>
-                    <label class="dropdown-item"><input type="checkbox" value="Все районы 4">  
-                        <div class="dicustom-checkbox__label">
-                            Все районы
-                        </div>
-                    </label>
-                </div>
-            </div> -->
 
         </div>
             

@@ -484,9 +484,9 @@ class UT_Real_Estate_Filter {
             if ( isset($_GET['ut_sale']) && $_GET['ut_sale'] ) {
                 $meta_query[] = [
                     [
-                        'key' => $rent_price_key,
+                        'key' => 'discount',
                         'value' => 0,
-                        'compare' => '=='
+                        'compare' => '!='
                     ]
                 ];
             }

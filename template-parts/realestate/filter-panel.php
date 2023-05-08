@@ -40,6 +40,14 @@ $finishings = get_terms( 'finishing', [
     'order' => 'ASC',
     'hide_empty' => 1,
 ] ); 
+
+if ( isset($_GET['dealType']) && 'Продажа' == $_GET['dealType'] ) {
+    $deal_type_checked = 'checked';
+} else if ( ! isset($_GET['dealType']) ) {
+    $deal_type_checked = 'checked';
+} else {
+    $deal_type_checked = '';
+}
 ?>
 
 <form id="realestate_form" action="" method="get">
@@ -56,7 +64,7 @@ $finishings = get_terms( 'finishing', [
             <div class="filter">
                 <div class="prod_checbox">  
 
-                    <input type="radio" id="radio1" name="dealType" value="Продажа" <?php echo ( (isset($_GET['dealType']) && 'Продажа' == $_GET['dealType']) ? 'checked' : '' ); ?>>
+                    <input type="radio" id="radio1" name="dealType" value="Продажа" <?php echo $deal_type_checked; ?>>
                     <label for="radio1">Продажа</label> 
 
                     <input type="radio" id="radio2" name="dealType" value="Аренда" <?php echo ( (isset($_GET['dealType']) && 'Аренда' == $_GET['dealType']) ? 'checked' : '' ); ?>>
@@ -119,34 +127,6 @@ $finishings = get_terms( 'finishing', [
 
                     </div>
                 </div>
-            <?php endif; ?>
-            
-            <!-- Site District -->
-            <?php if ($site_dstricts) : ?>
-                <!-- <div class="dropdown">
-                    <div class="dropdown_title">Район</div>
-                    <div class="dropdown-toggle" >
-                        Все районы
-                    </div> 
-                    <div class="dropdown-menu dicustom-checkbox">
-                        <div class="dropdown-search">
-                            <input type="text" placeholder="Поиск...">
-                        </div>
-                        
-                        <?php foreach ($site_dstricts as $site_dstrict) : ?>
-                            <label class="dropdown-item">
-                                <input  type="checkbox" 
-                                        name="ut_site_dstrict[]" 
-                                        value="<?php echo esc_attr($site_dstrict->name); ?>"
-                                        <?php echo ( (isset($_GET['ut_site_dstrict']) && in_array($site_dstrict->name, $_GET['ut_site_dstrict'])) ? 'checked' : '' ); ?>>  
-                                <div class="dicustom-checkbox__label">
-                                    <?php echo esc_html($site_dstrict->name); ?>
-                                </div>
-                            </label>
-                        <?php endforeach ?>
-
-                    </div>
-                </div> -->
             <?php endif; ?>
             
             <!-- Price -->
@@ -262,7 +242,7 @@ $finishings = get_terms( 'finishing', [
                 
                 <!-- District -->
                 <?php if ($districts) : ?>
-                    <!-- <div class="dropdown">
+                    <div class="dropdown">
                         <div class="dropdown_title">Округ</div>
                         <div class="dropdown-toggle" >
                             Все округа
@@ -285,12 +265,12 @@ $finishings = get_terms( 'finishing', [
                             <?php endforeach ?>
 
                         </div>
-                    </div> -->
+                    </div>
                 <?php endif; ?>
                 
                 <!-- Site District -->
                 <?php if ($site_dstricts) : ?>
-                    <!-- <div class="dropdown">
+                    <div class="dropdown">
                         <div class="dropdown_title">Район</div>
                         <div class="dropdown-toggle" >
                             Все районы
@@ -313,7 +293,7 @@ $finishings = get_terms( 'finishing', [
                             <?php endforeach ?>
 
                         </div>
-                    </div> -->
+                    </div>
                 <?php endif; ?>
                 
                 <!-- Departament -->

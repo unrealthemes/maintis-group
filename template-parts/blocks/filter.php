@@ -37,11 +37,11 @@ $links = get_field('links_filter');
         <div class="row_di"> 
             <div class="tabs">
                 <ul> 
-                    <li>Москва</li>
+                    <li class="filter-tab">Городская</li>
 
                     <?php if ($pages) : ?>
                         <?php foreach ($pages as $page) : ?>
-                            <li>
+                            <li class="filter-tab link">
                                 <a href="<?php echo esc_url(get_the_permalink($page)); ?>">
                                     <?php echo esc_html(get_the_title($page)); ?>
                                 </a>

@@ -431,6 +431,8 @@ if (input) {
             $(this).attr('name') == 'ut_bedrooms[]' ||
             $(this).attr('name') == 'ut_typeMarket[]' ||
             $(this).attr('name') == 'ut_finishing[]' ||
+            $(this).attr('name') == 'ut_district[]' ||
+            $(this).attr('name') == 'ut_site_dstrict[]' ||
             $(this).attr('name') == 'ut_type[]'
           ) {
 

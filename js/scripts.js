@@ -89,6 +89,8 @@ let ENTITY = {
             checkboxes.on('change', function() {
                 if ( 
                     $(this).attr('name') == 'ut_highway[]' ||
+                    $(this).attr('name') == 'ut_site_dstrict[]' ||
+                    $(this).attr('name') == 'ut_district[]' ||
                     $(this).attr('name') == 'ut_typeMarket[]'
                 ) {
                     ENTITY.update_count_filter();
