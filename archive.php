@@ -41,89 +41,94 @@ $find_txt = 'Найдено ' . ut_num_decline( $wp_query->found_posts, [ 'об�
                         <h3><?php echo $find_txt; ?></h3> 
                     </div>        
                     
-                    <div class="cat_short">
+					<?php if ( have_posts() ) : ?>
 
-						<?php get_template_part('template-parts/realestate/sort'); ?>
-                         
-                        <div class="tabs"> 
-           
-                            <ul> 
-                                <li>
-                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path opacity="0.9" d="M8.33333 2.5H2.5V8.33333H8.33333V2.5Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path opacity="0.9" d="M17.4998 2.5H11.6665V8.33333H17.4998V2.5Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path opacity="0.9" d="M17.4998 11.6667H11.6665V17.5H17.4998V11.6667Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path opacity="0.9" d="M8.33333 11.6667H2.5V17.5H8.33333V11.6667Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                    <span>Плиткой</span>
-                                </li>
-                                <li id="init_map_filter">
-                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M2.5 5L7.5 2.5L12.5 5L17.5 2.5V15L12.5 17.5L7.5 15L2.5 17.5V5Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M7.5 2.5V15" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M12.5 5V17.5" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg> 
-                                    <span>На карте</span>
-                                </li> 
-                            </ul>
+						<div class="cat_short">
 
-							<?php if ( have_posts() ) : ?>
+							<?php get_template_part('template-parts/realestate/sort'); ?>
+							
+							<div class="tabs"> 
+			
+								<ul> 
+									<li>
+										<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path opacity="0.9" d="M8.33333 2.5H2.5V8.33333H8.33333V2.5Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+											<path opacity="0.9" d="M17.4998 2.5H11.6665V8.33333H17.4998V2.5Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+											<path opacity="0.9" d="M17.4998 11.6667H11.6665V17.5H17.4998V11.6667Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+											<path opacity="0.9" d="M8.33333 11.6667H2.5V17.5H8.33333V11.6667Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+										</svg>
+										<span>Плиткой</span>
+									</li>
+									<li id="init_map_filter">
+										<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M2.5 5L7.5 2.5L12.5 5L17.5 2.5V15L12.5 17.5L7.5 15L2.5 17.5V5Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+											<path d="M7.5 2.5V15" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+											<path d="M12.5 5V17.5" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+										</svg> 
+										<span>На карте</span>
+									</li> 
+								</ul>
 
-								<div class="tabs_content">
+								<?php // if ( have_posts() ) : ?>
 
-									<div> 
-										<div class="row_di">
-											<div class="row_10_di object_list">
+									<div class="tabs_content">
 
-												<?php
-												while ( have_posts() ) :
-													the_post();
-													get_template_part('template-parts/realestate/realestate', 'item');
-													$lat = get_field('latitude', get_the_ID());
-													$lng = get_field('longitude', get_the_ID());
+										<div> 
+											<div class="row_di">
+												<div class="row_10_di object_list">
+
+													<?php
+													while ( have_posts() ) :
+														the_post();
+														get_template_part('template-parts/realestate/realestate', 'item');
+														$lat = get_field('latitude', get_the_ID());
+														$lng = get_field('longitude', get_the_ID());
+														
+														if ( $lat && $lng ) :
+															$params[] = [ $lat, $lng ];
+														endif;
+													endwhile;
+													?>
 													
-													if ( $lat && $lng ) :
-														$params[] = [ $lat, $lng ];
-													endif;
-												endwhile;
+												</div>
+
+												<!-- <div class="load_more_btn">
+													<a class="learn_morebtn btn" href="#">Показать еще</a>
+												</div>  -->
+
+												<?php 
+												the_posts_pagination([
+													'prev_text' => '',
+													'next_text' => '',
+												]); 
 												?>
-												
-											</div>
 
-											<!-- <div class="load_more_btn">
-												<a class="learn_morebtn btn" href="#">Показать еще</a>
-											</div>  -->
+											</div> 
+											
+										</div>
 
-											<?php 
-											the_posts_pagination([
-												'prev_text' => '',
-												'next_text' => '',
-											]); 
-											?>
-
-										</div> 
+										<div>
+											<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=0e22f693-ee8a-440d-96d7-df33d2b9e0a2" ></script>
+											<div id="yandex-map-filter" 
+												style="height:600px;width:100%;"
+												data-status=""
+												data-params="<?php echo esc_attr( wp_json_encode($params) ); ?>"
+											></div>
+										</div>
 										
 									</div>
 
-									<div>
-										<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=0e22f693-ee8a-440d-96d7-df33d2b9e0a2" ></script>
-										<div id="yandex-map-filter" 
-											style="height:600px;width:100%;"
-											data-status=""
-											data-params="<?php echo esc_attr( wp_json_encode($params) ); ?>"
-										></div>
-									</div>
-									
-								</div>
+								<?php // else : ?>
 
-							<?php else : ?>
+									<?php // get_template_part( 'template-parts/content', 'none' ); ?>
 
-								<?php get_template_part( 'template-parts/content', 'none' ); ?>
+								<?php // endif; ?>
+										
+							</div> 
+						</div>   
 
-							<?php endif; ?>
-                                    
-                        </div> 
-                    </div>           
+					<?php endif; ?>
+
                 </div>
             </div>
         </div>  

@@ -7,6 +7,7 @@ let ENTITY = {
         ENTITY.change_price();
         ENTITY.change_currency_symbols();
         ENTITY.map_filter();
+        ENTITY.block_filter();
         ENTITY.init_maps();
         ENTITY.reinit_map();
         ENTITY.show_more_btn();
@@ -65,6 +66,57 @@ let ENTITY = {
             });
         });
 
+    },
+
+    block_filter: function block_filter() {
+
+        $('input[name="dealType"]').on('change', function() {
+            ENTITY.update_count_filter();
+        });
+
+        $('input[name="price_from"], input[name="price_to"]').on('click', function() { 
+            ENTITY.update_count_filter();
+        });
+        
+        $('input[name="area_from"], input[name="area_to"]').on('click', function() { 
+            ENTITY.update_count_filter();
+        });
+
+        $('.dropdown-toggle').each(function() {
+            const dropdownToggle = $(this);
+            const dropdownMenu = dropdownToggle.siblings('.dropdown-menu');
+            const checkboxes = dropdownMenu.find('input[type="checkbox"]');
+            checkboxes.on('change', function() {
+                if ( 
+                    $(this).attr('name') == 'ut_highway[]' ||
+                    $(this).attr('name') == 'ut_typeMarket[]'
+                ) {
+                    ENTITY.update_count_filter();
+                }
+            });
+        });
+        
+    },
+
+    update_count_filter: function update_count_filter() {
+        let data = {
+            action     : 'ut_count_filter',
+            ajax_nonce : ut_params.ajax_nonce,
+            form       : $('#realestate_block_form').serialize(),
+        };
+
+        $.ajax({
+            url  : ut_params.ajax_url,
+            data : data,
+            type : 'POST',
+            beforeSend: function() {},
+            success: function( response ) {
+
+                if ( response.success ) {
+                    $('.btn_block_found_posts').html( 'Показать ' + response.data.found_posts );
+                }
+            }
+        });
     },
 
     show_more_btn: function show_more_btn() {

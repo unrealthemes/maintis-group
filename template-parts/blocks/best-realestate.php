@@ -64,7 +64,7 @@ $count = get_field('count_bre');
                             $i = 1;
                             while ( $loop->have_posts() ) : 
                                 $loop->the_post(); 
-                                get_template_part('template-parts/realestate/realestate', 'item', ['count' => $i]);
+                                get_template_part('template-parts/realestate/realestate', 'item', ['count' => $i, 'class' => 'object_item']);
                                 $i++;
                             endwhile; 
                             ?> 

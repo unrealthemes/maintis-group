@@ -37,8 +37,8 @@ $salePriceSquareEur = $args['salePriceSquareEur'];
                         name="radios" 
                         value="₽" 
                         data-symbol="₽/м²"
-                        data-price="<?php echo $salePriceRub; ?>"
-                        data-price-square="<?php echo $salePriceSquareRub; ?>"
+                        data-price="<?php echo number_format($salePriceRub, 0, '.', ' '); ?>"
+                        data-price-square="<?php echo number_format($salePriceSquareRub, 0, '.', ' '); ?>"
                         checked>
                 <label for="radio1">₽</label>  
                 
@@ -48,8 +48,8 @@ $salePriceSquareEur = $args['salePriceSquareEur'];
                         name="radios" 
                         value="$"
                         data-symbol="$/м²"
-                        data-price="<?php echo $salePriceUsd; ?>"
-                        data-price-square="<?php echo $salePriceSquareUsd; ?>"
+                        data-price="<?php echo number_format($salePriceUsd, 0, '.', ' '); ?>"
+                        data-price-square="<?php echo number_format($salePriceSquareUsd, 0, '.', ' '); ?>"
                         >
                 <label for="radio2">$</label>  
                 
@@ -59,8 +59,8 @@ $salePriceSquareEur = $args['salePriceSquareEur'];
                         name="radios" 
                         value="€"
                         data-symbol="€/м²"
-                        data-price="<?php echo $salePriceEur; ?>"
-                        data-price-square="<?php echo $salePriceSquareEur; ?>"
+                        data-price="<?php echo number_format($salePriceEur, 0, '.', ' '); ?>"
+                        data-price-square="<?php echo number_format($salePriceSquareEur, 0, '.', ' '); ?>"
                         >
                 <label for="radio3">€</label>  
             </div> 

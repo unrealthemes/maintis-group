@@ -147,7 +147,7 @@ div.wpcf7-spam-blocked::after {
 
 .dropdown-menu {
     overflow: auto;
-    height: 190px;
+    /* height: 190px; */
 }
 
 #currency_symbol,
@@ -244,6 +244,14 @@ label[for="eksklyuziv"] {
     justify-content: space-between;
     width: 180px;
     align-items: center;
+}
+
+label[for="eksklyuziv"] {
+    width: 165px;
+}
+
+label[for="sale"] {
+    width: 135px;
 }
 
 .rowfilter_2 {

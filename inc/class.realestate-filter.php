@@ -30,6 +30,11 @@ class UT_Real_Estate_Filter {
 
         check_ajax_referer( 'ut_check', 'ajax_nonce' );
         parse_str( $_POST['form'], $form );
+
+        if ( empty($form) ) {
+            wp_send_json_error();
+        }
+
         $params = [];
         $args = $this->get_args($form);
         $loop = new WP_Query( $args );
@@ -318,7 +323,7 @@ class UT_Real_Estate_Filter {
 
     public function filter_pre_get_post( $query ) {
 
-        if ( is_tax('department') && ! is_admin() && ! $query->is_single && $query->is_main_query() ) {
+        if ( is_tax() /*is_tax('department')*/ && ! is_admin() && ! $query->is_single && $query->is_main_query() ) {
 
             global $wp_query;
     

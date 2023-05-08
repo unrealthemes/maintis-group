@@ -96,6 +96,16 @@ add_filter('admin_footer_text', 'ut_remove_footer_admin');
 
 
 
+function ut_acf_json_save_point( $path ) {
+	
+    $path = get_stylesheet_directory() . '/acf-json';
+
+    return $path;
+}
+add_filter('acf/settings/save_json', 'ut_acf_json_save_point');
+
+
+
 /**
  * Custom excerpt
  */
