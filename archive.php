@@ -113,7 +113,9 @@ $find_txt = 'Найдено ' . ut_num_decline( $wp_query->found_posts, [ 'об�
 												style="height:600px;width:100%;"
 												data-status=""
 												data-params="<?php echo esc_attr( wp_json_encode($params) ); ?>"
-											></div>
+											>
+												<img src="<?php echo THEME_URI; ?>/img/map-preloader.gif" alt="Map preloader">
+											</div>
 										</div>
 										
 									</div>

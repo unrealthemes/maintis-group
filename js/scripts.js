@@ -240,10 +240,9 @@ let ENTITY = {
         }),
         getPointData = function (index) {
             return {
-                // balloonContentHeader: '<font size=3><b><a target="_blank" href="https://yandex.ru">Здесь может быть ваша ссылка</a></b></font>',
-                // balloonContentBody: '<p>Ваше имя: <input name="login"></p><p>Телефон в формате 2xxx-xxx:  <input></p><p><input type="submit" value="Отправить"></p>',
-                // balloonContentFooter: '<font size=1>Информация предоставлена: </font> балуном <strong>метки ' + index + '</strong>',
-                // clusterCaption: 'метка <strong>' + index + '</strong>'
+                balloonContentHeader: '<strong>' + index.title + '</strong>',
+                balloonContentBody: '<p>' + index.address + '</p><a href="' + index.permalink + '" target="_blank">' + index.thumbnail + '</a>',
+                clusterCaption: '<strong>' + index.title + '</strong>'
             };
         },
         getPointOptions = function () {
@@ -253,8 +252,11 @@ let ENTITY = {
         },
         geoObjects = [];
 
+        console.log( points );
+
         for ( var i = 0, len = points.length; i < len; i++ ) {
-            geoObjects[i] = new ymaps.Placemark(points[i], getPointData(i), getPointOptions());
+            geoObjects[i] = new ymaps.Placemark( [ points[i].lat, points[i].lng ], getPointData(points[i]), getPointOptions());
+            // geoObjects[i] = new ymaps.Placemark(points[i]);
         }
 
         // clusterer.options.set({
@@ -266,7 +268,7 @@ let ENTITY = {
         myMap.geoObjects.add(clusterer);
 
         myMap.setBounds(clusterer.getBounds(), {
-            checkZoomRange: true
+            // checkZoomRange: true
         });
     }
 

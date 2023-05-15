@@ -57,9 +57,18 @@ class UT_Real_Estate_Filter {
                 $loop->the_post(); 
                 $lat = get_field('latitude', get_the_ID());
                 $lng = get_field('longitude', get_the_ID());
+                $thumbnail = get_the_post_thumbnail(get_the_ID(), 'thumbnail'); 
+                $thumbnail = ($thumbnail) ? $thumbnail : '<img src="' . THEME_URI . '/img/default-image.png" alt="' . get_the_title() . '">';
                 
                 if ( $lat && $lng ) {
-                    $params[] = [ $lat, $lng ];
+                    $params[] = [
+                        'lat' => $lat, 
+                        'lng' => $lng,
+                        'title' => get_the_title(),
+                        'permalink' => get_the_permalink(),
+                        'thumbnail' => $thumbnail,
+                        'address' => get_field('address', get_the_ID()),
+                    ];
                 }
             }
         }

@@ -285,3 +285,17 @@ label[for="sale"] {
 .load_more_btn a {
     width: 100%;
 }
+
+#site-header .container {
+    padding: 0 15px;
+}
+
+#yandex-map-filter {
+    position: relative;
+}
+
+#yandex-map-filter > img {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+}
